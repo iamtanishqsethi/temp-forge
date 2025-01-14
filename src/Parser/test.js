@@ -1,8 +1,13 @@
+
+const {Evaluator} = require('../Evaluator/evaluator')
 const {Parser} = require('./parser')
+
 const parser = new Parser();
 function exec(){
-    const program='hello {{name}} welcome ! {{age}}'
+    const program='hello {{name}} and welcome to {{place}} !'
     const ast = parser.parse(program)
-    console.log(JSON.stringify(ast,null,2));
+    const data=Evaluator(ast)
+    console.log(ast)
+    console.log(data)
 }
 exec()

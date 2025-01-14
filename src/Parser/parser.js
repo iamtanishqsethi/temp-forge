@@ -50,24 +50,6 @@ class Parser {
         }
     }
 
-    VariableStatement() {
-        const token = this._lookahead;
-        // Extract the variable name from inside the brackets
-        const variableName = token.value.match(/{{\s*([^}]+)\s*}}/)[1];
-        return {
-            type: 'variableStatement',
-            value: token.value,
-            name: variableName.trim()  // If you want to include the extracted name
-        };
-    }
-
-    ExpressionStatement() {
-        const token = this._lookahead;
-        return {
-            type: 'expressionStatement',
-            value: token.value
-        };
-    }
 }
 
 module.exports = {

@@ -21,8 +21,6 @@ class Tokenizer{
             if(tokenValue===null){
                 continue;
             }
-            console.log(tokenType)
-            console.log(tokenValue)
             return {
                 type:tokenType,
                 value:tokenType==='VARIABLE'?tokenValue.trim():tokenValue,
@@ -36,7 +34,6 @@ class Tokenizer{
         if(matched===null){
             return null;
         }
-        console.log(matched)
         this._cursor+=matched[0].length
         return tokenType==='VARIABLE'?matched[1]:matched[0]
     }

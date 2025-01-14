@@ -1,88 +1,74 @@
 import {useState} from "react";
-
+import {compiler} from "./Compiler/compiler";
+const {Parser}=require('./Parser/parser')
+const {Evaluator}=require('./Evaluator/evaluator')
 const Template=()=>{
-    const [template,setTemplate]=useState('')
-    const [templateArray,setTemplateArray]=useState([])
-    const [parsed,setParsed]=useState(false)
-    const [data,setData]=useState({});
+    const [templateStr,setTemplateStr]=useState("")
+    const [AST, setAST] = useState(null);
+    const [data,setData]=useState({})
+    const [isParsed,setIsParsed]=useState(false)
+    const [output,setOutput]=useState("")
+    const [renderd,setRendered]=useState(false)
 
-    const reg = /{{\s*([^}]+)\s*}}/gm;
 
-    const handleExecute=()=>{
-        parseTemplate(template)
-        setParsed(true)
 
+    const parser = new Parser();
+
+    const handleExecute = () => {
+        const parsedAST = parser.parse(templateStr);
+        setAST(parsedAST);
+        setData(Evaluator(parsedAST));
+        setIsParsed(true);
     }
-    const handleDataChange=(key,value)=>{
-        setData((prevData)=>({
-            ...prevData,[key]:value
-        }))
-    }
 
 
-    const parseTemplate=(template)=>{
-        const matches=[...template.matchAll(reg)]
-        const arr=[]
-        let lastIndex=0;
-        matches.forEach((match)=>{
-            const [placeHolder,key]=match
-            const firstIndex=match.index
-            if(firstIndex>lastIndex){
-                arr.push(template.substring(lastIndex,firstIndex))
-            }
-            arr.push(placeHolder)
-            lastIndex=firstIndex+placeHolder.length
+    const handleDataChange = (key, value) => {
+        setData((prevData) => ({
+            ...prevData,
+            [key]: value,
+        }));
+    };
 
-            setData((prevData)=>({
-                ...prevData,[key.trim()]:"",
-            }))
-        })
-        if(lastIndex<template.length){
-            arr.push(template.substring(lastIndex))
-        }
-        setTemplateArray(arr)
+    const handleRender=()=>{
 
-    }
-    const renderTemplate=()=>{
-        return templateArray.map(item=>{
-            if(item.startsWith('{{') && item.endsWith('}}')){
-                const key=item.slice(2,-2).trim()
-                return data[key] || ""
-            }
-            return item
-        }).join("")
+        setRendered(true)
+        setOutput(compiler(AST,data))
     }
 
     return(
         <div>
-            <h1>Enter template</h1>
-            <input type="text"
-                   placeholder={'enter template...'}
-                   value={template}
-                   onChange={
-                (e)=>setTemplate(e.target.value)}
-            />
-            <button onClick={handleExecute}>
-                execute
-            </button>
-            {parsed &&
+            <h1>Enter Template</h1>
+            <input type="text" onChange={(e)=>{
+                setTemplateStr(e.target.value)
+            }}/>
+            <button onClick={handleExecute}>Execute</button>
+
+            {isParsed &&
                 <div>
-                    {Object.keys(data).map(key=>(
-                        <div>
+                    {Object.keys(data).map((key) => (
+                        <div key={key}>
                             <label>{key}</label>
-                            <input type="text"
-                                    value={data[key]}
-                                   placeholder={`enter value for ${key}:`}
-                                   onChange={(e)=>handleDataChange(key,e.target.value)}
+                            <input
+                                type="text"
+                                value={data[key]}
+                                placeholder={`Enter value for ${key}`}
+                                onChange={(e) => handleDataChange(key, e.target.value)}
                             />
                         </div>
                     ))}
                 </div>
             }
+
             <h2>Rendered Output</h2>
-            <div>{renderTemplate()}</div>
-
-
+            <div>
+                <button
+                    disabled={!isParsed}
+                    onClick={handleRender}
+                >Render final output</button>
+                {renderd && (
+                    <h3>{output}</h3>
+                )}
+            </div>
         </div>
     )
 }
