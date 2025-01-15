@@ -38,7 +38,7 @@ const Template=()=>{
     return(
         <div>
             <h1>Enter Template</h1>
-            <input type="text" onChange={(e)=>{
+            <input type="text"  className={'border-2'} onChange={(e)=>{
                 setTemplateStr(e.target.value)
             }}/>
             <button onClick={handleExecute}>Execute</button>
