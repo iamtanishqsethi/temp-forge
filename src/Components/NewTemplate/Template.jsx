@@ -3,7 +3,7 @@ import DonutSmallIcon from "@mui/icons-material/DonutSmall";
 const Template=()=>{
     const navigate = useNavigate();
     const handleExecute=()=>{
-        navigate("/created")
+        navigate("/created/123/new")
     }
     return (
         <div className={'flex flex-col justify-center items-center h-full w-[55%] '}>

@@ -1,7 +1,9 @@
 import Prompt from "./Prompt";
 import RestoreIcon from '@mui/icons-material/Restore';
+import {Link, useNavigate} from "react-router-dom";
 
 const PreviousPrompts=()=>{
+    const navigate = useNavigate();
     return (
 
             <div className={'flex flex-col justify-center items-center h-full w-[35%]'}>
@@ -16,12 +18,13 @@ const PreviousPrompts=()=>{
                         </div>
                         <button
                             className="text-white  bg-blue-700 rounded px-5 py-2 text-sm font-medium m-2"
+                            onClick={()=>navigate("/created/123/new")}
                         >
                             New
                         </button>
                     </div>
                     <div className={'flex  flex-col items-center overflow-y-auto '}>
-                        <Prompt/>
+                        <Link to={"/created/123/234"}><Prompt/></Link>
                         <Prompt/>
                         <Prompt/>
                         </div>

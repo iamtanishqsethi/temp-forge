@@ -1,6 +1,6 @@
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
-const InputBox=()=>{
+const NewInput=()=>{
     return (
         <div className={'flex flex-col justify-center items-center h-1/2 w-full'}>
             <div
@@ -14,11 +14,11 @@ const InputBox=()=>{
                         </h1>
                     </div>
 
-                    {/*<button*/}
-                    {/*    className="text-white  bg-red-700 rounded px-5 py-2 text-sm font-medium m-2"*/}
-                    {/*>*/}
-                    {/*    Render*/}
-                    {/*</button>*/}
+                    <button
+                        className="text-white  bg-red-700 rounded px-5 py-2 text-sm font-medium m-2"
+                    >
+                        Render
+                    </button>
                 </div>
                 <div className={'h-1 w-1/2 rounded-lg px-2 mx-2 bg-red-700'}></div>
 
@@ -26,4 +26,4 @@ const InputBox=()=>{
         </div>
     )
 }
-export default InputBox
+export default NewInput

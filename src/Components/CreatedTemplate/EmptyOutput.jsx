@@ -1,6 +1,6 @@
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 
-const Output = () => {
+const EmptyOutput = () => {
     return (
         <div className={'flex flex-col justify-center items-center h-full w-[60%]'}>
             <div
@@ -14,11 +14,7 @@ const Output = () => {
                         </h1>
                     </div>
 
-                    <button
-                        className="text-white bg-transparent bg-yellow-500 rounded px-5 py-2 text-sm font-medium m-2"
-                    >
-                        Copy
-                    </button>
+
                 </div>
 
 
@@ -36,4 +32,4 @@ const Output = () => {
     );
 };
 
-export default Output;
+export default EmptyOutput;

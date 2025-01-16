@@ -7,6 +7,9 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Newtemplate from "./Components/NewTemplate/Newtemplate";
 import Createdtemplate from "./Components/CreatedTemplate/Createdtemplate";
 import Body from "./Components/Body";
+import ExistingPrompt from "./Components/CreatedTemplate/ExistingPrompt";
+import NewPrompt from "./Components/CreatedTemplate/NewPrompt";
+
 
 function App() {
   const appRouter=createBrowserRouter([
@@ -23,8 +26,18 @@ function App() {
                   element:<Newtemplate/>
               },
               {
-                  path:"/created",
-                  element:<Createdtemplate/>
+                  path:"/created/:id",
+                  element:<Createdtemplate/>,
+                  children:[
+                      {
+                          path:"/created/:id/:promptId",
+                          element:<ExistingPrompt/>,
+                      },
+                      {
+                          path:"/created/:id/new",
+                          element:<NewPrompt/>,
+                      }
+                  ]
               }
           ]
       },

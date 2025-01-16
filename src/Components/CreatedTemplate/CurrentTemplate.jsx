@@ -2,7 +2,7 @@ import DonutSmallIcon from "@mui/icons-material/DonutSmall";
 
 const CurrentTemplate=()=>{
     return(
-        <div className={'flex flex-col justify-center items-center h-1/2 w-full '}>
+        <div className={'flex flex-col justify-end items-center h-1/2 w-full '}>
             <div
                 className={'bg-gradient-to-br from-zinc-950/10 to-zinc-800/10 border-2 border-red-700 backdrop-blur-xl  rounded-lg shadow-lg w-full h-2/3 '}>
                 <div className="flex flex-col justify-between items-start">
