@@ -1,9 +1,31 @@
 import {useNavigate} from "react-router-dom";
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
+import {useDispatch} from "react-redux";
+import {useState} from "react"
+import {addNewTemplate} from "../../Utils/promptSlice";
+import useTemplateExecute from "../../Hooks/useTemplateExecute";
+
 const Template=()=>{
-    const navigate = useNavigate();
+    const [template,setTemplate]=useState("")
+    const {templateData,processTemplate}=useTemplateExecute({templateStr:template})
+
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
     const handleExecute=()=>{
-        navigate("/created/123/new")
+        if (!template.trim()) {
+            alert("Please enter a valid template.")
+            return
+        }
+        processTemplate()
+
+        if (templateData) {
+            dispatch(addNewTemplate(templateData));
+            navigate(`/created/${templateData.id}/new`)
+        } else {
+            alert("Failed to process the template. Please try again.")
+        }
     }
     return (
         <div className={'flex flex-col justify-center items-center h-full w-[55%] '}>
@@ -16,7 +38,9 @@ const Template=()=>{
                     <div className={'h-1 w-1/2 rounded-lg px-2 mx-2 bg-blue-700'}></div>
                 </div>
                 <textarea className={'text-white bg-transparent w-full my-4 mx-2 h-3/5 outline-none p-4'}
-                          placeholder={'Enter the template here'}>
+                          placeholder={'Enter the template here'}
+                            onChange={(e)=>setTemplate(e.target.value)}
+                >
 
                 </textarea>
                 <button className={'bg-blue-700 px-5 py-3 m-4 rounded-lg '}

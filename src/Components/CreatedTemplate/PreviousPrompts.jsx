@@ -1,9 +1,14 @@
 import Prompt from "./Prompt";
 import RestoreIcon from '@mui/icons-material/Restore';
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const PreviousPrompts=()=>{
+    const {id}=useParams()
     const navigate = useNavigate();
+    const templateArray=useSelector((store)=>store.prompt.templateArray)
+    const {prompts}=templateArray.find((item)=>item.id==id)
+    console.log(prompts)
     return (
 
             <div className={'flex flex-col justify-center items-center h-full w-[35%]'}>
@@ -18,15 +23,18 @@ const PreviousPrompts=()=>{
                         </div>
                         <button
                             className="text-white  bg-blue-700 rounded px-5 py-2 text-sm font-medium m-2"
-                            onClick={()=>navigate("/created/123/new")}
+                            onClick={()=>navigate(`/created/${id}/new`)}
                         >
                             New
                         </button>
                     </div>
                     <div className={'flex  flex-col items-center overflow-y-auto '}>
-                        <Link to={"/created/123/234"}><Prompt/></Link>
-                        <Prompt/>
-                        <Prompt/>
+                        {prompts.length===0? (
+                            <p className={'p-4 m-4 text-lg'}>No Prompts for this template</p>
+                        ):prompts.map((prompt, index) => (
+                            <Link to={`/created/${id}/${prompt?.id}`}><Prompt/></Link>
+                        ))}
+
                         </div>
 
 

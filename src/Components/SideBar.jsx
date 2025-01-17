@@ -4,10 +4,13 @@ import {closeSideBar} from "../Utils/configSlice";
 import SideBarTemplate from "./SideBarTemplate";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 const SideBar=()=>{
     const isSideBarOpen=useSelector(store=>store.config.isSidebarOpen)
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const templateArray=useSelector((store)=>store.prompt.templateArray)
 
     return (
         <div
@@ -17,11 +20,17 @@ const SideBar=()=>{
                 <h1 className={'p-2 m-1'}><WhatshotIcon className={'text-amber-500'} sx={{fontSize:40}}/> </h1>
                 <button onClick={() => dispatch(closeSideBar())} className={'p-2 m-1'}><CloseIcon sx={{fontSize:30}}/></button>
             </div>
-            <div className={'flex flex-col items-center justify-between overflow-y-auto h-2/3'}>
-                <SideBarTemplate/>
-                <SideBarTemplate/>
-                <SideBarTemplate/>
-                <SideBarTemplate/>
+            <div className={'flex flex-col items-center  overflow-y-auto h-2/3'}>
+                {
+                    templateArray.length>0?(
+                        templateArray.map((item,index)=>(
+                            <Link to={`/created/${item.id}/new`}><SideBarTemplate key={index} templateData={item}/></Link>
+                        ))
+                    ):(
+                        <div>No templates available</div>
+                    )
+                }
+
 
             </div>
 

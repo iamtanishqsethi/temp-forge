@@ -21,10 +21,10 @@ const EmptyOutput = () => {
                 <div className={'h-1 w-1/2 rounded-lg px-2 mx-2 bg-yellow-500'}></div>
 
                 <textarea
-                    className={'text-white bg-transparent w-full h-4/5 p-4 outline-none'}
+                    className={' bg-transparent w-full h-4/5 p-4 outline-none text-zinc-300 text-center text-lg'}
                     placeholder={'output prompt will go here'}
                     readOnly={true}
-                    value={"hello world"}
+                    value={"Click on Render to generate Prompt"}
                 >
         </textarea>
             </div>

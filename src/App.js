@@ -9,7 +9,7 @@ import Createdtemplate from "./Components/CreatedTemplate/Createdtemplate";
 import Body from "./Components/Body";
 import ExistingPrompt from "./Components/CreatedTemplate/ExistingPrompt";
 import NewPrompt from "./Components/CreatedTemplate/NewPrompt";
-
+import Error from "./Components/Error";
 
 function App() {
   const appRouter=createBrowserRouter([
@@ -38,6 +38,10 @@ function App() {
                           element:<NewPrompt/>,
                       }
                   ]
+              },
+              {
+                  path:"/error",
+                  element:<Error/>,
               }
           ]
       },
