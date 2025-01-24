@@ -20,11 +20,11 @@ function App() {
           children:[
               {
                   path:'/',
-                  element:<Welcome/>
+                  element:<Login/>
               },
               {
-                path:'/login',
-                element:<Login/>
+                path:'/welcome',
+                element:<Welcome/>
               },
               {
                 path:'/template',

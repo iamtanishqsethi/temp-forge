@@ -1,39 +1,40 @@
-import { useEffect, useState } from "react";
 import { Parser } from "../Parser/parser";
 import { Evaluator } from "../Evaluator/evaluator";
+import { collection, addDoc } from "firebase/firestore";
+import { database } from "../Utils/firebase-config";
+import { useSelector } from "react-redux";
 
-const useTemplateExecute = ({ templateStr }) => {
-    const [templateData, setTemplateData] = useState(null);
-
+const useTemplateExecute = () => {
+    const user = useSelector((store) => store.user)
     const parser = new Parser();
-
-    const processTemplate = () => {
+    const processTemplate = async (templateStr) => {
         try {
+            if (!user) {
+                throw new Error("User not authenticated")
+            }
+            console.log(user)
+            if (!user) {
+                throw new Error("User ID is missing");
+            }
+
             const parsedAST = parser.parse(templateStr);
             const data = Evaluator(parsedAST);
-            const newTemplateData = {
-                id: Date.now(),
+
+            const docRef = await addDoc(collection(database, user), {
                 AST: parsedAST,
                 data: data,
-                template: templateStr,
+                templateStr: templateStr,
                 prompts: [],
-            };
-            setTemplateData(newTemplateData);
+            });
+            return docRef.id;
         } catch (error) {
             console.error("Error processing template:", error);
+            throw error;
         }
-    };
+    }
 
-    useEffect(() => {
-        if (templateStr) {
-            processTemplate();
-        }
-    }, [templateStr]);
-
-    return {
-        templateData,
-        processTemplate,
-    };
-};
+    return processTemplate;
+}
 
 export default useTemplateExecute;
+

@@ -2,7 +2,7 @@ import {useState,useRef} from "react";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {addNewUser} from "../Utils/userSlice";
+import {addUser} from "../Utils/userSlice";
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword ,updateProfile} from "firebase/auth";
 import {auth} from "../Utils/firebase-config";
 import {checkValidData} from "../Utils/validate";
@@ -34,7 +34,6 @@ const Login=()=>{
                     // Signed in
                     const user = userCredential.user;
                     console.log(user);
-                    // ...
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -53,8 +52,8 @@ const Login=()=>{
                         displayName: name.current.value
                     }).then(()=>{
                         const {uid} = auth.currentUser;
-                        dispatch(addNewUser(uid));
-                        navigate('/template/new')
+                        dispatch(addUser(uid));
+                        navigate('/welcome')
                     })
 
 
