@@ -24,7 +24,7 @@ const SideBar=()=>{
                 {
                     templateArray.length>0?(
                         templateArray.map((item,index)=>(
-                            <Link to={`/created/${item.id}/new`}><SideBarTemplate key={index} templateData={item}/></Link>
+                            <Link to={`/template/created/${item.id}/new`}><SideBarTemplate key={index} templateData={item}/></Link>
                         ))
                     ):(
                         <div>No templates available</div>
@@ -37,7 +37,7 @@ const SideBar=()=>{
             <div className={'flex items-center justify-end m-4'}>
                 <button className={'bg-blue-700 px-6 py-2 rounded-lg font-medium '}
                         onClick={()=>{
-                            navigate("/new")
+                            navigate("/template/new")
                             dispatch(closeSideBar())
                         }}
                 >New</button>

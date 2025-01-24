@@ -5,7 +5,7 @@ import {useState} from "react"
 import {addNewTemplate} from "../../Utils/promptSlice";
 import useTemplateExecute from "../../Hooks/useTemplateExecute";
 
-const Template=()=>{
+const TemplateBox=()=>{
     const [template,setTemplate]=useState("")
     const {templateData,processTemplate}=useTemplateExecute({templateStr:template})
 
@@ -22,7 +22,7 @@ const Template=()=>{
 
         if (templateData) {
             dispatch(addNewTemplate(templateData));
-            navigate(`/created/${templateData.id}/new`)
+            navigate(`/template/created/${templateData.id}/new`)
         } else {
             alert("Failed to process the template. Please try again.")
         }
@@ -51,4 +51,4 @@ const Template=()=>{
         </div>
     )
 }
-export default Template;
+export default TemplateBox;

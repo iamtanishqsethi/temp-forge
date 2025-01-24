@@ -3,8 +3,10 @@ import DonutSmallIcon from '@mui/icons-material/DonutSmall';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 const Welcome=()=>{
     const navigate = useNavigate();
+    const userId=useSelector((store)=>store.user.userId)
     return (
         <div className={'px-36 flex flex-row items-center justify-between h-screen bg-gradient-to-tl from-amber-700 via-zinc-900 to-zinc-950 text-white'}>
 
@@ -16,7 +18,15 @@ const Welcome=()=>{
                 <p className={'text-lg text-gray-300 px-2 m-2'}>Your ultimate tool for structured thinking and creative expression</p>
                 <button
                     className={'border-2 border-amber-500  bg-transparent rounded-lg font-bold text-white px-5 py-3 m-2 '}
-                    onClick={()=>navigate("/login")}
+                    onClick={()=> {
+                        if(userId){
+                            navigate('/template/new')
+                        }
+                        else{
+                            navigate("/login")
+                        }
+
+                    }}
                 >Get started <WhatshotIcon className={'text-amber-500'}/> </button>
             </div>
 

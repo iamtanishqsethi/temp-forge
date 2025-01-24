@@ -10,6 +10,7 @@ import ExistingPrompt from "./Components/CreatedTemplate/ExistingPrompt";
 import NewPrompt from "./Components/CreatedTemplate/NewPrompt";
 import Error from "./Components/Error";
 import Login from "./Components/Login";
+import Template from "./Components/Template";
 
 function App() {
   const appRouter=createBrowserRouter([
@@ -26,23 +27,31 @@ function App() {
                 element:<Login/>
               },
               {
-                  path:"/new",
-                  element:<Newtemplate/>
-              },
-              {
-                  path:"/created/:id",
-                  element:<Createdtemplate/>,
+                path:'/template',
+                element:<Template/>,
                   children:[
                       {
-                          path:"/created/:id/:promptId",
-                          element:<ExistingPrompt/>,
+                          path:"/template/new",
+                          element:<Newtemplate/>
                       },
                       {
-                          path:"/created/:id/new",
-                          element:<NewPrompt/>,
-                      }
+                          path:"/template/created/:id",
+                          element:<Createdtemplate/>,
+                          children:[
+                              {
+                                  path:"/template/created/:id/:promptId",
+                                  element:<ExistingPrompt/>,
+                              },
+                              {
+                                  path:"/template/created/:id/new",
+                                  element:<NewPrompt/>,
+                              }
+                          ]
+                      },
+
                   ]
               },
+
               {
                   path:"/error",
                   element:<Error/>,

@@ -1,5 +1,5 @@
 import Suggestions from "./Suggestions";
-import Template from "./Template";
+import TemplateBox from "./TemplateBox";
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 const Newtemplate=()=>{
 
@@ -12,7 +12,7 @@ const Newtemplate=()=>{
             </div>
             <div className={'flex  items-center justify-around h-[75%] w-full '}>
                 <Suggestions/>
-                <Template/>
+                <TemplateBox/>
             </div>
 
 

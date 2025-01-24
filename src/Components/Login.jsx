@@ -1,7 +1,17 @@
 import {useState,useRef} from "react";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {addNewUser} from "../Utils/userSlice";
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword ,updateProfile} from "firebase/auth";
+import {auth} from "../Utils/firebase-config";
+import {checkValidData} from "../Utils/validate";
+
 
 const Login=()=>{
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [isSigninForm, setIsSigninForm] = useState(true);
     const [errorMessage,setErrorMessage]=useState(null);
 
@@ -9,11 +19,65 @@ const Login=()=>{
     const password=useRef(null)
     const name=useRef(null)
 
+
+    const handleClick=(e)=>{
+        e.preventDefault();
+        const message =checkValidData(email.current.value,password.current.value)
+        setErrorMessage(message)
+
+        if(message) return;
+        console.log('VALID')
+
+        if(isSigninForm){//sign in existing user
+            signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    console.log(user);
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrorMessage(errorCode + errorMessage)
+                });
+
+        }
+        else{
+            createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then((userCredential) => {
+                    // Signed up
+                    const user = userCredential.user;
+                    console.log(user)
+                    updateProfile(user, {
+                        displayName: name.current.value
+                    }).then(()=>{
+                        const {uid} = auth.currentUser;
+                        dispatch(addNewUser(uid));
+                        navigate('/template/new')
+                    })
+
+
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrorMessage(errorCode + errorMessage)
+                });
+        }
+
+
+
+
+    }
+
+
+
     return (
         <div className={'bg-gradient-to-tl from-amber-700 via-zinc-900 to-zinc-950 text-white flex flex-col items-center justify-center h-screen'}>
-            <div className={'bg-gradient-to-br from-zinc-950/10 to-zinc-800/10 border-2 rounded-lg border-gray-500 backdrop-blur-xl h-[70%] w-[40%] p-8'}>
+            <div className={'bg-gradient-to-br from-zinc-950/10 to-zinc-800/10 border-2 rounded-lg border-gray-500 backdrop-blur-xl h-[85%] w-[35%] p-8 mt-20'}>
                 <form className={'flex flex-col  justify-center '}>
-                    <h1 className={'text-4xl mx-2 my-5 font-bold'}>{isSigninForm ? ('Sign In') : ('Sign Up')}<WhatshotIcon sx={{ fontSize: 30 }} className={'text-amber-500 mx-2'}/></h1>
+                    <h1 className={'text-4xl mx-2 my-3 font-bold'}>{isSigninForm ? ('Sign In') : ('Sign Up')}<WhatshotIcon sx={{ fontSize: 30 }} className={'text-amber-500 mx-2'}/></h1>
                     {!isSigninForm && (<div className={'w-full'}>
                         <h1 className={' text-xl m-2 text-gray-200'}>
                             Enter your Name :
@@ -32,7 +96,7 @@ const Login=()=>{
                     <p className={"text-red-500 font-bold py-2 "}>{errorMessage}</p>
                     <button
                         className={'py-3 m-2 bg-blue-700 text-white text-xl font-medium rounded-md'}
-                        // onClick={handleClick}
+                        onClick={handleClick}
                     >{isSigninForm ? ('Sign In') : ('Sign Up')}</button>
                     <p
                         className={'text-gray-500 font-bold cursor-pointer text-lg'}
