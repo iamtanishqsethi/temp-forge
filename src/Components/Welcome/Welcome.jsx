@@ -16,7 +16,7 @@ const Welcome=()=>{
                 <p className={'text-lg text-gray-300 px-2 m-2'}>Your ultimate tool for structured thinking and creative expression</p>
                 <button
                     className={'border-2 border-amber-500  bg-transparent rounded-lg font-bold text-white px-5 py-3 m-2 '}
-                    onClick={()=>navigate("/new")}
+                    onClick={()=>navigate("/login")}
                 >Get started <WhatshotIcon className={'text-amber-500'}/> </button>
             </div>
 

@@ -1,5 +1,4 @@
 import './App.css';
-import Template from "./Template";
 import Welcome from "./Components/Welcome/Welcome";
 import appStore from "./Utils/appStore";
 import {Provider} from "react-redux";
@@ -10,6 +9,7 @@ import Body from "./Components/Body";
 import ExistingPrompt from "./Components/CreatedTemplate/ExistingPrompt";
 import NewPrompt from "./Components/CreatedTemplate/NewPrompt";
 import Error from "./Components/Error";
+import Login from "./Components/Login";
 
 function App() {
   const appRouter=createBrowserRouter([
@@ -20,6 +20,10 @@ function App() {
               {
                   path:'/',
                   element:<Welcome/>
+              },
+              {
+                path:'/login',
+                element:<Login/>
               },
               {
                   path:"/new",

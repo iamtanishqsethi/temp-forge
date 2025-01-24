@@ -1,7 +1,7 @@
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { useState } from "react";
 
-import {useNavigate, useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {compiler} from "../../Compiler/compiler";
 import {addNewPrompt} from "../../Utils/promptSlice";
@@ -11,13 +11,14 @@ const generatePromptId = () => {
 };
 
 const NewInput = ({ data }) => {
-    const [updatedData, setUpdatedData] = useState({});
+    const [updatedData, setUpdatedData] = useState(null);
     const { id } = useParams();
     const templateArray=useSelector((store)=>store.prompt.templateArray)
-    const template=templateArray.find((item)=>item.id===id)
+
+    const template=templateArray.find((item)=>item.id==id)
+    console.log(template);
     const [promptId,setPromptId]=useState(null)
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
 
     const compileTemplate=()=>{
@@ -36,7 +37,6 @@ const NewInput = ({ data }) => {
                 data:updatedData,
             }})
         )
-        return output;
 
     }
 
@@ -52,12 +52,8 @@ const NewInput = ({ data }) => {
 
     const handleRender = () => {
         compileTemplate()
-        if (promptId) {
-            console.log("Prompt ID:", promptId);
-            navigate(`created/${id}/${promptId}`);
-        } else {
-            console.log("Prompt ID not generated yet.");
-        }
+        console.log(updatedData);
+        console.log(promptId)
     };
 
     return (
