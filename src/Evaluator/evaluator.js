@@ -7,7 +7,7 @@ const Evaluator = (ast) => {
 
     ast.body.forEach((element)=>{
         if(element.type==="variable"){
-            data[element.value]=undefined;
+            data[element.value]="";
         }
     })
 

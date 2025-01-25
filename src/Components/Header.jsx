@@ -36,8 +36,9 @@ const Header=()=>{
     return (
         <div className={'w-screen bg-gradient-to-tl from-zinc-900/80 via-zinc-900 to-zinc-950 fixed px-4 py-5 flex items-center justify-between'}>
             <div className={'flex items-center'}>
-                <button onClick={()=>dispatch(openSideBar())}><MenuIcon className={'text-white  cursor-pointer'} /></button>
-                <Link to={"/welcome"}>
+                {userId && <button onClick={() => dispatch(openSideBar())}><MenuIcon className={'text-white  cursor-pointer'}/>
+                </button>}
+                <Link to={userId?("/welcome"):("/")}>
                     <h1
                         className={'text-xl px-2 mx-2 font-bold text-white'}
                     >Template Forge <WhatshotIcon className={'text-amber-500'}/></h1>

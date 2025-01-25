@@ -12,20 +12,21 @@ const useTemplateExecute = () => {
             if (!user) {
                 throw new Error("User not authenticated")
             }
-            console.log(user)
-            if (!user) {
-                throw new Error("User ID is missing");
-            }
+            // console.log(user)
 
             const parsedAST = parser.parse(templateStr);
+            console.log(parsedAST)
             const data = Evaluator(parsedAST);
-
-            const docRef = await addDoc(collection(database, user), {
+            console.log(data)
+            const docData = {
                 AST: parsedAST,
                 data: data,
                 templateStr: templateStr,
                 prompts: [],
-            });
+            };
+            console.log(docData)
+            const docRef = await addDoc(collection(database, user), docData);
+            console.log(docRef)
             return docRef.id;
         } catch (error) {
             console.error("Error processing template:", error);

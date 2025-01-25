@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 const PreviousPrompts=()=>{
     const {id}=useParams()
     const navigate = useNavigate();
-    const templateArray=useSelector((store)=>store.prompt.templateArray)
+    const templateArray=useSelector((store)=>store.templates.templatesArr)
     const {prompts}=templateArray.find((item)=>item.id==id)
     console.log(prompts)
     return (

@@ -13,7 +13,7 @@ const generatePromptId = () => {
 const NewInput = ({ data }) => {
     const [updatedData, setUpdatedData] = useState(null);
     const { id } = useParams();
-    const templateArray=useSelector((store)=>store.prompt.templateArray)
+    const templateArray=useSelector((store)=>store.templates.templatesArr)
 
     const template=templateArray.find((item)=>item.id==id)
     console.log(template);
