@@ -3,17 +3,22 @@ import { useNavigate } from "react-router-dom"
 import DonutSmallIcon from "@mui/icons-material/DonutSmall"
 import CallMadeIcon from "@mui/icons-material/CallMade"
 import useTemplateExecute from "../../Hooks/useTemplateExecute"
+import useFetchTemplates from "../../Hooks/useFetchTemplates";
 
 const TemplateBox = () => {
     const [template, setTemplate] = useState("")
+    const [isProcessing, setIsProcessing] = useState(false)
     const processTemplate = useTemplateExecute()
     const navigate = useNavigate()
+
+    useFetchTemplates()
 
     const handleExecute = async () => {
         if (!template.trim()) {
             alert("Please enter a valid template.")
             return
         }
+        setIsProcessing(true)
         try {
             const templateId = await processTemplate(template);
             if (templateId) {
@@ -23,6 +28,9 @@ const TemplateBox = () => {
             }
         } catch (error) {
             alert("Failed to process the template. Please try again.")
+        }
+        finally {
+            setIsProcessing(false)
         }
     };
 
@@ -43,8 +51,9 @@ const TemplateBox = () => {
                 <button
                     className="bg-blue-700 px-5 py-3 m-4 rounded-lg"
                     onClick={handleExecute}
+                    disabled={isProcessing}
                 >
-                    Create New <CallMadeIcon />
+                    {isProcessing?'Processing...':'Create New'}<CallMadeIcon />
                 </button>
             </div>
         </div>

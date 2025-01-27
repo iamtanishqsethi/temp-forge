@@ -1,41 +1,52 @@
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {useCallback, useEffect, useState} from "react";
 import {compiler} from "../Compiler/compiler";
-import {addNewPrompt} from "../Utils/promptSlice";
-const generatePromptId = () => {
-    return `prompt-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-};
-const useTemplateRender=({id,updatedData})=>{
-    const templateArray=useSelector((store)=>store.prompt.templateArray)
-    const template=templateArray.find((item)=>item.id==id)
-    const [promptId,setPromptId]=useState(null)
-    const dispatch = useDispatch();
+import { v4 as uuidv4 } from 'uuid';
+import {database} from "../Utils/firebase-config";
+import {doc,updateDoc} from "firebase/firestore";
 
-    const compileTemplate=()=>{
-        if (!template) {
-            console.error(`Template with id "${id}" not found.`);
-            return;
+
+const useTemplateRender=(id)=>{
+
+    const templatesArr=useSelector((store)=>store.templates.templatesArr)
+    const currentTemplate=templatesArr.find((item)=>item.id==id)
+    const [PromptArr,setPromptArr]=useState([])
+    const userId=useSelector((state)=>state.user);
+
+    useEffect(() => {
+        if(currentTemplate?.prompts){
+            setPromptArr(currentTemplate.prompts);
         }
+    }, [currentTemplate]);
 
-        const {AST} = template;
-        const output=compiler(AST,updatedData)
-        const proId=generatePromptId()
-        setPromptId(proId)
-        dispatch(addNewPrompt({templateId:id,prompt:{
-            promptId:proId,
-                outputStr:output,
+
+    const compileTemplate=useCallback(async (updatedData)=>{
+        try{
+            if(!currentTemplate||!userId){
+                throw new Error("Template or user not found");
+            }
+            const outputPrompt=compiler(currentTemplate.AST,updatedData)
+            const newPrompt={
+                id:uuidv4(),
+                value:outputPrompt,
                 data:updatedData,
-            }})
-        )
+            }
+            const updatedPrompts=[...PromptArr,newPrompt];
+            await updateDoc(doc(database,userId,id),{
+                prompts:updatedPrompts
+            })
+            setPromptArr(updatedPrompts)
 
+            return newPrompt.id
 
-    }
-    useEffect(()=>{
-        if(id && updatedData){
-            compileTemplate()
         }
-    },[id,updatedData])
+        catch (error){
+            console.log("failed to compile and add prompt")
+            throw error;
+        }
 
-    return promptId;
+    },[userId,currentTemplate,id])
+
+    return compileTemplate;
 }
-;
+export default useTemplateRender

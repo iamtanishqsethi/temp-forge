@@ -1,47 +1,19 @@
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { useState } from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import useFetchTemplates from "../../Hooks/useFetchTemplates";
+import useTemplateRender from "../../Hooks/useTemplateRender";
 
-import { useParams } from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {compiler} from "../../Compiler/compiler";
-import {addNewPrompt} from "../../Utils/promptSlice";
 
-const generatePromptId = () => {
-    return `prompt-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-};
-
-const NewInput = ({ data }) => {
+const NewInput = ({ data ,AST}) => {
     const [updatedData, setUpdatedData] = useState(null);
     const { id } = useParams();
-    const templateArray=useSelector((store)=>store.templates.templatesArr)
+    const compileTemplate = useTemplateRender(id);
 
-    const template=templateArray.find((item)=>item.id==id)
-    console.log(template);
-    const [promptId,setPromptId]=useState(null)
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
+    useFetchTemplates()
 
-    const compileTemplate=()=>{
-        if (!template) {
-            console.error(`Template with id "${id}" not found.`);
-            return;
-        }
-
-        const {AST} = template;
-        const output=compiler(AST,updatedData)
-        const proId=generatePromptId()
-        setPromptId(proId)
-        dispatch(addNewPrompt({templateId:id,prompt:{
-                promptId:proId,
-                outputStr:output,
-                data:updatedData,
-            }})
-        )
-
-    }
-
-
-    // const promptId = useTemplateRender({ id, updatedData });
 
     const handleInput = (key, value) => {
         setUpdatedData((prevData) => ({
@@ -51,9 +23,20 @@ const NewInput = ({ data }) => {
     };
 
     const handleRender = () => {
-        compileTemplate()
-        console.log(updatedData);
-        console.log(promptId)
+
+        console.log(updatedData)
+        try{
+            const promptId=compileTemplate(updatedData)
+            if(promptId){
+                navigate(`/template/created/${id}/${promptId}`)
+            }
+            else{
+                alert("Failed to process the template. Please try again.")
+            }
+        }catch(error){
+            console.log('error rendering template')
+            throw error;
+        }
     };
 
     return (

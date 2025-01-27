@@ -7,7 +7,7 @@ import {useSelector} from "react-redux";
 const Welcome=()=>{
     const navigate = useNavigate();
     const userId=useSelector((store)=>store.user)
-    console.log(userId)
+    // console.log(userId)
     return (
         <div className={'px-36 flex flex-row items-center justify-between h-screen bg-gradient-to-tl from-amber-700 via-zinc-900 to-zinc-950 text-white'}>
 

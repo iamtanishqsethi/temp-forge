@@ -1,6 +1,6 @@
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 
-const Output = () => {
+const Output = ({value}) => {
     return (
         <div className={'flex flex-col justify-center items-center h-full w-[60%]'}>
             <div
@@ -28,7 +28,7 @@ const Output = () => {
                     className={'text-white bg-transparent w-full h-4/5 p-4 outline-none'}
                     placeholder={'output prompt will go here'}
                     readOnly={true}
-                    value={"hello world"}
+                    value={value}
                 >
         </textarea>
             </div>

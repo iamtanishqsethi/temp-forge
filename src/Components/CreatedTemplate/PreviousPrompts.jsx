@@ -4,11 +4,13 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 
 const PreviousPrompts=()=>{
+
     const {id}=useParams()
     const navigate = useNavigate();
-    const templateArray=useSelector((store)=>store.templates.templatesArr)
-    const {prompts}=templateArray.find((item)=>item.id==id)
-    console.log(prompts)
+    const templatesArr=useSelector((store)=>store.templates.templatesArr)
+    const currentTemplate=templatesArr.find((item)=>item.id==id)
+
+
     return (
 
             <div className={'flex flex-col justify-center items-center h-full w-[35%]'}>
@@ -23,16 +25,16 @@ const PreviousPrompts=()=>{
                         </div>
                         <button
                             className="text-white  bg-blue-700 rounded px-5 py-2 text-sm font-medium m-2"
-                            onClick={()=>navigate(`/created/${id}/new`)}
+                            onClick={()=>navigate(`/template/created/${id}/new`)}
                         >
                             New
                         </button>
                     </div>
                     <div className={'flex  flex-col items-center overflow-y-auto '}>
-                        {prompts.length===0? (
+                        {currentTemplate?.prompts.length===0? (
                             <p className={'p-4 m-4 text-lg'}>No Prompts for this template</p>
-                        ):prompts.map((prompt, index) => (
-                            <Link to={`/created/${id}/${prompt?.id}`}><Prompt/></Link>
+                        ):currentTemplate?.prompts.map((prompt, index) => (
+                            <Link to={`/template/created/${id}/${prompt?.id}`} key={index}><Prompt prompt={prompt}/></Link>
                         ))}
 
                         </div>
@@ -41,6 +43,6 @@ const PreviousPrompts=()=>{
                 </div>
             </div>
 
-                )
-                }
-                export default PreviousPrompts;
+    )
+}
+export default PreviousPrompts;

@@ -44,7 +44,7 @@ const Header=()=>{
                     >Template Forge <WhatshotIcon className={'text-amber-500'}/></h1>
                 </Link>
             </div>
-            {userId && <button className={'bg-red-600 p-2 text-white rounded-lg'} onClick={handleSignOut}>
+            {userId && <button className={'bg-red-900 hover:bg-red-600 p-2 text-white rounded'} onClick={handleSignOut}>
                 Sign Out
             </button>}
         </div>

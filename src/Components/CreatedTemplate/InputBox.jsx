@@ -14,13 +14,32 @@ const InputBox=()=>{
                         </h1>
                     </div>
 
-                    {/*<button*/}
-                    {/*    className="text-white  bg-red-700 rounded px-5 py-2 text-sm font-medium m-2"*/}
-                    {/*>*/}
-                    {/*    Render*/}
-                    {/*</button>*/}
                 </div>
                 <div className={'h-1 w-1/2 rounded-lg px-2 mx-2 bg-red-700'}></div>
+                {/*<div*/}
+                {/*    className={*/}
+                {/*        "flex flex-col items-center overflow-y-auto justify-normal"*/}
+                {/*    }*/}
+                {/*>*/}
+                {/*    {data?.length === 0 ? (*/}
+                {/*        <p>No variables found</p>*/}
+                {/*    ) : (*/}
+                {/*        Object.keys(data).map((key) => (*/}
+                {/*            <div key={key} className={"m-2 p-2 text-lg"}>*/}
+                {/*                <label className={"p-2 uppercase"}>{key} :</label>*/}
+                {/*                <input*/}
+                {/*                    type="text"*/}
+                {/*                    value={data?.[key] || ""}*/}
+                {/*                    placeholder={`Enter value for ${key}`}*/}
+                {/*                    className={*/}
+                {/*                        "p-2 bg-transparent border-2 border-zinc-600 outline-none rounded-lg"*/}
+                {/*                    }*/}
+                {/*                    readOnly={true}*/}
+                {/*                />*/}
+                {/*            </div>*/}
+                {/*        ))*/}
+                {/*    )}*/}
+                {/*</div>*/}
 
             </div>
         </div>
