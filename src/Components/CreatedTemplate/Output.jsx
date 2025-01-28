@@ -16,6 +16,7 @@ const Output = ({value}) => {
 
                     <button
                         className="text-white bg-transparent bg-yellow-500 rounded px-5 py-2 text-sm font-medium m-2"
+                        onClick={()=>window.navigator.clipboard.writeText(value)}
                     >
                         Copy
                     </button>

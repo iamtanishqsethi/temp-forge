@@ -22,11 +22,12 @@ const NewInput = ({ data ,AST}) => {
         }));
     };
 
-    const handleRender = () => {
+    const handleRender = async () => {
 
-        console.log(updatedData)
+        // console.log(updatedData)
         try{
-            const promptId=compileTemplate(updatedData)
+            const promptId=await compileTemplate(updatedData)
+            // console.log(promptId)
             if(promptId){
                 navigate(`/template/created/${id}/${promptId}`)
             }
