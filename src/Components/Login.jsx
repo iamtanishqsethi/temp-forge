@@ -4,8 +4,9 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {addUser} from "../Utils/userSlice";
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword ,updateProfile} from "firebase/auth";
-import {auth} from "../Utils/firebase-config";
+import {auth, googleProvider,githubProvider} from "../Utils/firebase-config";
 import {checkValidData} from "../Utils/validate";
+import { signInWithPopup } from "firebase/auth";
 
 
 const Login=()=>{
@@ -70,6 +71,26 @@ const Login=()=>{
 
     }
 
+    const handleGoogleSignin=async ()=>{
+        try{
+            const result=await signInWithPopup(auth, googleProvider);
+            const user = result.user;
+            dispatch(addUser(user.uid));
+        }catch (error){
+            setErrorMessage("Google Sign-In Error:"+ error);
+        }
+
+    }
+    const handleGitHubSignin=async ()=>{
+        try{
+            const result=await signInWithPopup(auth, githubProvider);
+            const user = result.user;
+            dispatch(addUser(user.uid));
+        }catch (error){
+            setErrorMessage("GitHub Sign-In Error:"+ error);
+        }
+    }
+
 
 
     return (
@@ -103,6 +124,17 @@ const Login=()=>{
                     >{isSigninForm ? ('New User ? Sign Up') : ('Already a User ? Sign In')}</p>
 
                 </form>
+                <div className={'flex items-center justify-center'}>
+                    <button
+                        className={'p-3 m-2 bg-white text-black font-bold'}
+                        onClick={handleGoogleSignin}
+                    >Sign In with Google </button>
+                    <button
+                        className={'p-3 m-2 bg-black text-white'}
+                        onClick={handleGitHubSignin}
+                    >Sign In with GitHub</button>
+                </div>
+
             </div>
         </div>
     )
