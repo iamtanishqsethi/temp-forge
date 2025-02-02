@@ -11,6 +11,9 @@ import NewPrompt from "./Components/CreatedTemplate/NewPrompt";
 import Error from "./Components/Error";
 import Login from "./Components/Login";
 import Template from "./Components/Template";
+import Landing from "./Components/Landing";
+import ProfilePage from "./Components/Profile/ProfilePage";
+import PublicTemplates from "./Components/PublicTemplates";
 
 function App() {
   const appRouter=createBrowserRouter([
@@ -19,12 +22,24 @@ function App() {
           element:<Body/>,
           children:[
               {
-                  path:'/',
+                  path:"/",
+                  element:<Landing/>
+              },
+              {
+                  path:'/public',
+                  element:<PublicTemplates/>
+              },
+              {
+                  path:'/login',
                   element:<Login/>
               },
               {
                 path:'/welcome',
                 element:<Welcome/>
+              },
+              {
+                  path:'/profile/:id',
+                  element:<ProfilePage/>
               },
               {
                 path:'/template',

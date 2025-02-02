@@ -1,5 +1,5 @@
 import {useState,useRef} from "react";
-import WhatshotIcon from "@mui/icons-material/Whatshot";
+import LockIcon from '@mui/icons-material/Lock';
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {addUser} from "../Utils/userSlice";
@@ -149,15 +149,15 @@ const Login=()=>{
                 <h1 className={'text-xl font-extralight my-1'}>{isSigninForm?`Welcome back, your vault of prompts await you`:'Welcome User, your vault of prompts await you'}</h1>
                 <form className={'flex flex-col items-center justify-center my-12  w-full'}>
                     {!isSigninForm && <input ref={name} type="text" placeholder={'Name'}
-                                             className={'w-full border-2 border-gray-300 p-2.5 my-3 placeholder:text-xl text-xl'}/>}
+                                             className={'w-full border-2 border-gray-400 rounded-lg p-2.5 my-3 placeholder:text-xl text-xl'}/>}
 
                     <input type="email" ref={email} placeholder={'Email'}
-                           className={'w-full border-2 border-gray-300 p-2.5 my-3 placeholder:text-xl text-xl'}/>
-                    <input type="password" ref={password} placeholder={'Password'}
-                           className={'w-full border-2 border-gray-300 p-2.5 my-3 placeholder:text-xl text-xl'}/>
+                           className={'w-full border-2 border-gray-400 rounded-lg p-2.5 my-3 placeholder:text-xl text-xl'}/>
+                    <input type="password" ref={password} placeholder={"Password"}
+                           className={'w-full border-2 border-gray-400 rounded-lg p-2.5 my-3 placeholder:text-xl text-xl'}/>
                     <button
                         onClick={handleClick}
-                        className={'bg-blue-800 w-full  p-2.5 my-5 text-white font-bold text-xl'}>{isSigninForm?'LOG IN':'SIGN UP'}</button>
+                        className={'bg-blue-800 rounded-lg w-full  p-2.5 my-5 text-white font-bold text-xl'}>{isSigninForm?'LOG IN':'SIGN UP'}</button>
                     {isSigninForm && <><div className={'flex items-center justify-between w-full'}>
                         <div className={'h-[1.5px] w-[45%] bg-zinc-700'}></div>
                         <span className={'text-lg text-zinc-800'}>or</span>
@@ -165,7 +165,7 @@ const Login=()=>{
                     </div>
                      <div className={'flex items-center justify-center'}>
                         <button
-                            className={'p-2.5 flex m-2 bg-white text-black  border border-black'}
+                            className={'p-2.5 flex m-2 bg-white text-black  border border-zinc-500 rounded-lg'}
                             onClick={handleGoogleSignin}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="28" height="28"
@@ -181,7 +181,7 @@ const Login=()=>{
                             </svg>
                             <span className={'m-1'}>Google</span></button>
                         <button
-                            className={'p-2.5 flex m-2 bg-white text-black  border border-black'}
+                            className={'p-2.5 flex m-2 bg-white text-black  border border-zinc-500 rounded-lg'}
                             onClick={handleGitHubSignin}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="28" height="28"

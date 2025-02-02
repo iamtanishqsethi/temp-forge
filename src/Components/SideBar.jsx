@@ -5,11 +5,9 @@ import SideBarTemplate from "./SideBarTemplate";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import {useNavigate} from "react-router-dom";
 import {Link} from "react-router-dom";
-import {useEffect} from "react";
 import useFetchTemplates from "../Hooks/useFetchTemplates";
-import {collection, deleteDoc, doc} from "firebase/firestore";
+import { deleteDoc, doc} from "firebase/firestore";
 import {database} from "../Utils/firebase-config";
-import {setTemplates} from "../Utils/templateSlice";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 

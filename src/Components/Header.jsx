@@ -13,14 +13,20 @@ const Header=()=>{
     const navigate=useNavigate();
     const location = useLocation();
     const path = location.pathname;
+    const user = useSelector((store) => store.user)
 
     const[hidden,setHidden]=useState(false);
+    const [isLanding,setIsLanding]=useState(false);
     useEffect(()=>{
-        if(path==='/'){
+        if(path==='/login'){
             setHidden(true);
+        }
+        else if(path==='/' || (!user && path==='/public')){
+            setIsLanding(true);
         }
         else{
             setHidden(false);
+            setIsLanding(false);
         }
     },[path])
 
@@ -29,6 +35,7 @@ const Header=()=>{
 
     const handleSignOut=()=>{
         signOut(auth)
+        navigate('/')
     }
 
     useEffect(() => {
@@ -40,27 +47,44 @@ const Header=()=>{
             }
             else {
                 dispatch(removeUser());
-                navigate('/')
+                if (path !== '/') {
+                    navigate('/login')
+                }
             }
         });
         return ()=> unSubscribe()
     },[])
 
     return (
-        <div className={`${hidden?'hidden':'fixed'} w-screen bg-gradient-to-tl from-zinc-900/80 via-zinc-900 to-zinc-950  px-4 py-5 flex items-center justify-between`}>
-            <div className={'flex items-center'}>
-                {userId && <button onClick={() => dispatch(openSideBar())}><MenuIcon className={'text-white  cursor-pointer'}/>
-                </button>}
-                <Link to={userId?("/welcome"):("/")}>
-                    <h1
-                        className={'text-xl px-2 mx-2 font-bold text-white'}
-                    >Template Forge <WhatshotIcon className={'text-amber-500'}/></h1>
-                </Link>
+        <div className={'w-screen flex flex-col items-center font-inter'}>
+            <div className={`${hidden?'hidden':'fixed'} w-[98%] bg-zinc-50 border-zinc-900 rounded-lg border px-4 py-5 m-3 flex items-center justify-between`}>
+                <div className={'flex items-center'}>
+                    {userId && <button onClick={() => dispatch(openSideBar())}><MenuIcon className={'  cursor-pointer'}/>
+                    </button>}
+                    <Link to={userId?("/welcome"):("/")}>
+                        <h1
+                            className={'text-xl px-2 mx-2 font-bold '}
+                        >Template Forge <WhatshotIcon className={'text-amber-500'}/></h1>
+                    </Link>
+                </div>
+                {isLanding && <ul className={'flex items-center justify-center space-x-4 text-lg'}>
+                    <li>Create</li>
+                    <div className={'w-0.5 h-5 bg-orangeBg'}></div>
+                    <Link to={'/public'}><li>Templates</li></Link>
+                    <div className={'w-0.5 h-5 bg-orangeBg rounded-xl'}></div>
+                    <li><button className={'px-2 py-1 border-2 text-orangeBg border-orangeBg rounded-lg'} onClick={()=>navigate('/login')}>Sign in</button></li>
+                </ul>
+                }
+                {userId && <div className={'flex items-center justify-center space-x-2'}>
+                    <Link to={'/public'}><h1>Templates</h1></Link>
+                    <button className={'bg-red-900 hover:bg-red-600 p-2 text-white rounded'} onClick={handleSignOut}>
+                        Sign Out
+                    </button>
+                    <button className={'bg-blue-900 hover:bg-blue-600 p-2 text-white rounded'} onClick={()=>navigate(`/profile/${userId}`)}>Profile</button>
+                </div>}
             </div>
-            {userId && <button className={'bg-red-900 hover:bg-red-600 p-2 text-white rounded'} onClick={handleSignOut}>
-                Sign Out
-            </button>}
         </div>
+
     )
 }
 export default Header
