@@ -1,7 +1,7 @@
 import Suggestions from "./Suggestions";
 import TemplateBox from "./TemplateBox";
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
-const Newtemplate=()=>{
+const NewTemplate=()=>{
 
     return (
         <div
@@ -20,4 +20,4 @@ const Newtemplate=()=>{
         </div>
     )
 }
-export default Newtemplate;
+export default NewTemplate;

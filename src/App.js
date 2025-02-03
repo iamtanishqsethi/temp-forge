@@ -3,7 +3,7 @@ import Welcome from "./Components/Welcome/Welcome";
 import appStore from "./Utils/appStore";
 import {Provider} from "react-redux";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import Newtemplate from "./Components/NewTemplate/Newtemplate";
+import NewTemplate from "./Components/NewTemplate/NewTemplate";
 import Createdtemplate from "./Components/CreatedTemplate/Createdtemplate";
 import Body from "./Components/Body";
 import ExistingPrompt from "./Components/CreatedTemplate/ExistingPrompt";
@@ -47,7 +47,7 @@ function App() {
                   children:[
                       {
                           path:"/template/new",
-                          element:<Newtemplate/>
+                          element:<NewTemplate/>
                       },
                       {
                           path:"/template/created/:id",

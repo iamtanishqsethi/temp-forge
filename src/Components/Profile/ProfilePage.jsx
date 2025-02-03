@@ -8,9 +8,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from '@mui/icons-material/Add';
 
 const ProfilePage=()=>{
-    const navigate = useNavigate();
-
-    const userId=useSelector((state)=>state.user);
+    const navigate = useNavigate()
+    const userId=useSelector((state)=>state.user?.uid);
+    const profileIMG=useSelector((state)=>state.user?.photoURL);
+    const displayName=useSelector((state)=>state.user?.displayName);
     const templatesArr=useSelector((store)=>store.templates.templatesArr)
     useFetchTemplates()
 
@@ -20,10 +21,9 @@ const ProfilePage=()=>{
     }
     const handleAddPublic=async (id)=>{
         const currentTemplate=templatesArr.find((item)=>item.id===id)
-        console.log(currentTemplate)
+
         try{
             const docRef =await addDoc(collection(database,"public"),currentTemplate)
-            console.log(docRef)
         }
         catch (error){
             console.log('error adding to public database')
@@ -33,7 +33,8 @@ const ProfilePage=()=>{
     return(
         <div className={'h-screen flex flex-col items-center justify-center font-inter'}>
             <h1 className={'text-2xl'}>Profile Page</h1>
-            <h1 className="text-lg">{userId}</h1>
+            <img src={profileIMG} alt="" className={'h-24 w-24 m-2 rounded-full object-cover'}/>
+            <h1 className="text-lg">{displayName}</h1>
             <h2 className="text-xl my-5">Templates</h2>
             <button  className={'bg-blue-700 px-6 py-2 rounded-lg font-medium '}
                     onClick={()=>navigate("/template/new")}>

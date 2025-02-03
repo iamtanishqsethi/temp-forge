@@ -11,7 +11,7 @@ const useTemplateRender=(id)=>{
     const templatesArr=useSelector((store)=>store.templates.templatesArr)
     const currentTemplate=templatesArr.find((item)=>item.id==id)
     const [PromptArr,setPromptArr]=useState([])
-    const userId=useSelector((state)=>state.user);
+    const userId=useSelector((state)=>state.user?.uid);
 
     useEffect(() => {
         if(currentTemplate?.prompts){

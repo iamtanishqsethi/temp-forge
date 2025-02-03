@@ -7,6 +7,7 @@ import { createUserWithEmailAndPassword,signInWithEmailAndPassword ,updateProfil
 import {auth, googleProvider,githubProvider} from "../Utils/firebase-config";
 import {checkValidData} from "../Utils/validate";
 import { signInWithPopup } from "firebase/auth";
+import {PROFILE_URL} from "../Utils/constants";
 
 
 const Login=()=>{
@@ -50,10 +51,11 @@ const Login=()=>{
                     const user = userCredential.user;
                     console.log(user)
                     updateProfile(user, {
-                        displayName: name.current.value
+                        displayName: name.current.value,
+                        photoURL: PROFILE_URL
                     }).then(()=>{
-                        const {uid} = auth.currentUser;
-                        dispatch(addUser(uid));
+                        const {uid,email,displayName,photoURL} = auth.currentUser;
+                        dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}));
                         navigate('/welcome')
                     })
 
@@ -76,7 +78,8 @@ const Login=()=>{
         try{
             const result=await signInWithPopup(auth, googleProvider);
             const user = result.user;
-            dispatch(addUser(user.uid));
+            const {uid,email,displayName,photoURL} = user;
+            dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}));
         }catch (error){
             setErrorMessage("Google Sign-In Error:"+ error);
         }
@@ -87,7 +90,8 @@ const Login=()=>{
         try{
             const result=await signInWithPopup(auth, githubProvider);
             const user = result.user;
-            dispatch(addUser(user.uid));
+            const {uid,email,displayName,photoURL} = user;
+            dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}));
         }catch (error){
             setErrorMessage("GitHub Sign-In Error:"+ error);
         }

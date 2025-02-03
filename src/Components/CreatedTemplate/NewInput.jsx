@@ -9,11 +9,9 @@ const NewInput = ({ data ,AST}) => {
     const [updatedData, setUpdatedData] = useState(null);
     const { id } = useParams();
     const compileTemplate = useTemplateRender(id);
-
     const navigate = useNavigate();
 
     useFetchTemplates()
-
 
     const handleInput = (key, value) => {
         setUpdatedData((prevData) => ({
@@ -24,7 +22,6 @@ const NewInput = ({ data ,AST}) => {
 
     const handleRender = async () => {
 
-        // console.log(updatedData)
         try{
             const promptId=await compileTemplate(updatedData)
             // console.log(promptId)

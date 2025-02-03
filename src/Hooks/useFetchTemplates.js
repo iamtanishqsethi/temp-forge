@@ -7,7 +7,7 @@ import {useCallback, useEffect} from "react";
 const useFetchTemplates=()=>{
 
     const dispatch = useDispatch();
-    const user = useSelector((store) => store.user)
+    const user = useSelector((store) => store.user?.uid)
 
     // const getTemplates=useCallback(async ()=>{
     //     try {

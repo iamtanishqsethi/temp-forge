@@ -13,10 +13,11 @@ const Header=()=>{
     const navigate=useNavigate();
     const location = useLocation();
     const path = location.pathname;
-    const user = useSelector((store) => store.user)
+    const user = useSelector((store) => store.user?.uid)
 
     const[hidden,setHidden]=useState(false);
     const [isLanding,setIsLanding]=useState(false);
+
     useEffect(()=>{
         if(path==='/login'){
             setHidden(true);
@@ -41,8 +42,8 @@ const Header=()=>{
     useEffect(() => {
         const unSubscribe=onAuthStateChanged(auth,(user)=>{
             if(user){
-                const {uid} = auth.currentUser;
-                dispatch(addUser(uid));
+                const {uid,email,displayName,photoURL} = auth.currentUser;
+                dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}));
                 navigate('/welcome')
             }
             else {

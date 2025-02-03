@@ -16,7 +16,7 @@ const SideBar=()=>{
     const isSideBarOpen=useSelector(store=>store.config.isSidebarOpen)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector((store) => store.user)
+    const user = useSelector((store) => store.user?.uid)
     const templatesArr=useSelector((store)=>store.templates.templatesArr)
     useFetchTemplates()
 

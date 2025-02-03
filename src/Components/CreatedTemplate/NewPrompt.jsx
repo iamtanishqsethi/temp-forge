@@ -13,6 +13,7 @@ const NewPrompt=()=>{
         navigate("/error")
         return;
     }
+
     const currentTemplate=templatesArr.find((item)=>item.id==id)
 
     if(!currentTemplate){

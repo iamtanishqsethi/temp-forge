@@ -5,7 +5,7 @@ import { database } from "../Utils/firebase-config";
 import { useSelector } from "react-redux";
 
 const useTemplateExecute = () => {
-    const user = useSelector((store) => store.user)
+    const user = useSelector((store) => store.user?.uid)
     const parser = new Parser();
     const processTemplate = async (templateStr) => {
         try {
