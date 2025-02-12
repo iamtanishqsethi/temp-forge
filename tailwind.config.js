@@ -10,6 +10,9 @@ module.exports = {
       },
       colors:{
         orangeBg:"#EB7705"
+      },
+      backgroundImage: {
+        'custom-img': "url('/src/Assets/img_1.png')"
       }
     },
   },
