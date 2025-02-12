@@ -1,28 +1,30 @@
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
+import React from "react";
 
 const CurrentTemplate=({template})=>{
 
     return(
 
-        <div className={'flex flex-col justify-end items-center h-1/2 w-full '}>
-            <div
-                className={'bg-gradient-to-br from-zinc-950/10 to-zinc-800/10 border-2 border-red-700 backdrop-blur-xl  rounded-lg shadow-lg w-full h-2/3 '}>
-                <div className="flex flex-col justify-between items-start">
-                    <h1 className="text-white text-lg font-medium p-2 mx-2 my-1">
-                        <DonutSmallIcon sx={{fontSize: 30}} className={'text-red-700'}/> Current Template
-                    </h1>
-                    <div className={'h-1 w-1/2 rounded-lg px-2 mx-2 bg-red-700'}></div>
-                </div>
-                <div className={'flex flex-col justify-center items-center'}>
-                    <textarea className={'w-[90%] h-[80%] m-2 p-4 text-lg bg-transparent'}
-                        required={true}
-                              value={template}
-                    ></textarea>
-
-                </div>
-
+        <div className={'h-[40%] w-full rounded-3xl border-2 border-black p-6 flex flex-col'}>
+            <div className={'flex space-x-4'}>
+                <svg width="44" height="25" viewBox="0 0 39 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="6.69708" height="6.69708" rx="2" transform="matrix(0.70848 -0.70573 0.70848 0.70573 19.7607 5.31982)" fill="black"/>
+                    <rect width="6.69708" height="6.69708" rx="2" transform="matrix(0.70848 -0.70573 0.70848 0.70573 29.3283 5.31982)" fill="black"/>
+                    <rect width="6.69708" height="6.69708" rx="2" transform="matrix(0.70848 -0.70573 0.70848 0.70573 19.7607 14.8496)" fill="black"/>
+                    <rect width="6.69708" height="6.69708" rx="2" transform="matrix(0.70848 -0.70573 0.70848 0.70573 29.3283 14.8496)" fill="black"/>
+                    <rect width="6.69708" height="6.69708" rx="2" transform="matrix(0.70848 -0.70573 0.70848 0.70573 0.703583 5.31982)" fill="black"/>
+                    <rect width="6.69708" height="6.69708" rx="2" transform="matrix(0.70848 -0.70573 0.70848 0.70573 10.2712 5.31982)" fill="black"/>
+                    <rect width="6.69708" height="6.69708" rx="2" transform="matrix(0.70848 -0.70573 0.70848 0.70573 0.703583 14.8496)" fill="black"/>
+                    <rect width="6.69708" height="6.69708" rx="2" transform="matrix(0.70848 -0.70573 0.70848 0.70573 10.2712 14.8496)" fill="black"/>
+                </svg>
+                <h1 className={'text-xl'}>TEMPLATE</h1>
             </div>
+            <textarea className={'w-full h-[95%] m-1 p-1.5  outline-none border-2 border-zinc-200 rounded-2xl'}
+                            required={true}
+                                  value={template}
+                        ></textarea>
         </div>
+
     )
 }
 export default CurrentTemplate;

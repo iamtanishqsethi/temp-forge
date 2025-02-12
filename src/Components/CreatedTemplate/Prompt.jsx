@@ -1,6 +1,6 @@
 const Prompt=({prompt})=>{
     return (
-        <div className={'bg-gradient-to-tr from-zinc-700 to-zinc-800 w-80 p-4 m-2 rounded-lg'}>
+        <div className={'border-2 border-black w-full p-4 mb-2 rounded-3xl'}>
             <h2>{prompt?.value}</h2>
 
         </div>
