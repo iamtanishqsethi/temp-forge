@@ -32,7 +32,10 @@ const Landing=()=>{
                     </div>
                     <div className={'m-2 my-5 py-1 px-8 flex items-center'}>
                         <button className={'m-2 bg-black rounded-full text-lg text-white py-1 px-5'}>Create Templates</button>
-                        <button className={'m-2 bg-white rounded-full text-lg text-black border border-black py-1 px-5'}>Explore Templates</button>
+                        <button
+                            className={'m-2 bg-white rounded-full text-lg text-black border border-black py-1 px-5'}
+                            onClick={()=>navigate("/public")}
+                        >Explore Templates</button>
                     </div>
 
 
@@ -83,7 +86,7 @@ const Landing=()=>{
                         </div>
                     </div>
                 </div>
-                <div className={'bg-lightGreen h-[75vh] w-[49.5%] rounded-3xl text-black text-left p-8 '}>
+                <div className={'bg-lightGreen h-[75vh] w-[49.5%] rounded-3xl text-black text-left p-8 relative'}>
                     <h1 className={'text-5xl font-extrabold my-2 '}>Why TempForge ?</h1>
                     <div className={'flex items-center my-10 space-x-4'}>
                         <h1 className={'bg-black text-lightGreen text-sm px-3 py-1 rounded-full '}>Personalized Storage</h1>
@@ -96,6 +99,10 @@ const Landing=()=>{
                         Nullam vehicula ullamcorper orci eget malesuada. Nulla nec sem eget felis lobortis sollicitudin
                         eu ac augue. Maecenas eget venenatis velit. Nam lacinia fermentum erat, vitae rhoncus urna eleifend eu.
                         Cras lobortis lacinia sem. Curabitur faucibus urna at vestibulum malesuada. </p>
+                    <svg className={'absolute bottom-6 right-6'} width="105" height="108" viewBox="0 0 105 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M43.8 107.7L44.4 66.3L8.7 88.2L2.23517e-07 74.7L37.2 52.8L1.2 31.2L9.9 18L44.1 39.3L43.8 -1.43051e-05H60L59.7 39L93.6 18L102.6 31.2L66.6 52.8L104.1 74.7L94.8 88.2L59.4 66.3L60 107.7H43.8Z" fill="white"/>
+                    </svg>
+
                 </div>
             </div>
         </div>

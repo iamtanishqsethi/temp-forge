@@ -60,8 +60,7 @@ const Header=()=>{
         <div className={'w-screen flex flex-col items-center font-inter'}>
             <div className={`${hidden?'hidden':'fixed'} w-screen z-10 bg-white  px-4 py-4  flex items-center justify-between`}>
                 <div className={'flex items-center'}>
-                    {userId && <button onClick={() => dispatch(openSideBar())}><MenuIcon className={'  cursor-pointer'}/>
-                    </button>}
+
                     <Link to={userId?("/welcome"):("/")}>
                         <svg width="74" height="37" viewBox="0 0 74 37" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="37" y="9.21204" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 37 9.21204)" fill="black"/>
@@ -77,17 +76,14 @@ const Header=()=>{
                     </Link>
                 </div>
                 {isLanding && <ul className={'flex items-center justify-center space-x-4 text-lg'}>
-                    <li>Create</li>
-                    <div className={'w-0.5 h-5 bg-orangeBg'}></div>
-                    <Link to={'/public'}><li>Templates</li></Link>
-                    <div className={'w-0.5 h-5 bg-orangeBg rounded-xl'}></div>
+
                     <li><button className={'px-7 py-2 mx-2 text-sm bg-black text-white  rounded-full'} onClick={()=>navigate('/login')}>Sign in</button></li>
                 </ul>
                 }
                 {userId && <div className={'flex items-center justify-center space-x-2'}>
-                    <Link to={'/public'}><h1>Templates</h1></Link>
-                    <button className={'bg-red-900 hover:bg-red-600 p-2 text-white rounded'} onClick={handleSignOut}>
-                        Sign Out
+                    {/*<Link to={'/public'}><h1>Templates</h1></Link>*/}
+                    <button className={'px-7 py-2 mx-2 text-sm bg-black text-white  rounded-full'} onClick={handleSignOut}>
+                        Log Out
                     </button>
                     <button className={'bg-blue-900 hover:bg-blue-600 p-2 text-white rounded'} onClick={()=>navigate(`/profile/${userId}`)}>Profile</button>
                 </div>}
