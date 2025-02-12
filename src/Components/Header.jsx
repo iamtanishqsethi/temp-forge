@@ -58,14 +58,22 @@ const Header=()=>{
 
     return (
         <div className={'w-screen flex flex-col items-center font-inter'}>
-            <div className={`${hidden?'hidden':'fixed'} w-[98%] bg-zinc-50 border-zinc-900 rounded-lg border px-4 py-5 m-3 flex items-center justify-between`}>
+            <div className={`${hidden?'hidden':'fixed'} w-screen z-10 bg-white  px-4 py-4  flex items-center justify-between`}>
                 <div className={'flex items-center'}>
                     {userId && <button onClick={() => dispatch(openSideBar())}><MenuIcon className={'  cursor-pointer'}/>
                     </button>}
                     <Link to={userId?("/welcome"):("/")}>
-                        <h1
-                            className={'text-xl px-2 mx-2 font-bold '}
-                        >Template Forge <WhatshotIcon className={'text-amber-500'}/></h1>
+                        <svg width="74" height="37" viewBox="0 0 74 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="37" y="9.21204" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 37 9.21204)" fill="black"/>
+                            <rect x="55.5759" y="9.21204" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 55.5759 9.21204)" fill="black"/>
+                            <rect x="37" y="27.7878" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 37 27.7878)" fill="black"/>
+                            <rect x="55.5759" y="27.7878" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 55.5759 27.7878)" fill="black"/>
+                            <rect y="9.21216" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 0 9.21216)" fill="black"/>
+                            <rect x="18.5759" y="9.21216" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 18.5759 9.21216)" fill="black"/>
+                            <rect y="27.7878" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 0 27.7878)" fill="black"/>
+                            <rect x="18.5759" y="27.7878" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 18.5759 27.7878)" fill="black"/>
+                        </svg>
+
                     </Link>
                 </div>
                 {isLanding && <ul className={'flex items-center justify-center space-x-4 text-lg'}>
@@ -73,7 +81,7 @@ const Header=()=>{
                     <div className={'w-0.5 h-5 bg-orangeBg'}></div>
                     <Link to={'/public'}><li>Templates</li></Link>
                     <div className={'w-0.5 h-5 bg-orangeBg rounded-xl'}></div>
-                    <li><button className={'px-2 py-1 border-2 text-orangeBg border-orangeBg rounded-lg'} onClick={()=>navigate('/login')}>Sign in</button></li>
+                    <li><button className={'px-7 py-2 mx-2 text-sm bg-black text-white  rounded-full'} onClick={()=>navigate('/login')}>Sign in</button></li>
                 </ul>
                 }
                 {userId && <div className={'flex items-center justify-center space-x-2'}>

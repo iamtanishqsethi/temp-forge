@@ -1,6 +1,6 @@
 import {useState,useRef} from "react";
 import LockIcon from '@mui/icons-material/Lock';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {addUser} from "../Utils/userSlice";
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword ,updateProfile} from "firebase/auth";
@@ -102,7 +102,7 @@ const Login=()=>{
     return (
         <div className={'bg-white  text-black font-inter flex items-center justify-between h-screen'}>
             <div className={'  h-full w-[47%] flex flex-col items-center  justify-center'}>
-                <div className={'bg-custom-img  object-center object-cover h-[98%] w-[94%] flex flex-col items-center  justify-center m-2 rounded-3xl'}>
+                <div className={'bg-custom-img  bg-center bg-cover h-[98%] w-[94%] flex flex-col items-center  justify-center m-2 rounded-3xl'}>
                     <svg width="300" height="170" viewBox="0 0 74 37" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="37" y="9.21204" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 37 9.21204)" fill="white"/>
                         <rect x="55.5759" y="9.21204" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 55.5759 9.21204)" fill="white"/>
@@ -113,7 +113,7 @@ const Login=()=>{
                         <rect y="27.7878" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 0 27.7878)" fill="white"/>
                         <rect x="18.5759" y="27.7878" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 18.5759 27.7878)" fill="white"/>
                     </svg>
-                    <h1 className={'text-6xl font-bold text-white my-2'}>TEMPFORGE</h1>
+                    <Link to={"/"}><h1 className={'text-6xl font-bold text-white my-2'}>TEMPFORGE</h1></Link>
 
                 </div>
 
