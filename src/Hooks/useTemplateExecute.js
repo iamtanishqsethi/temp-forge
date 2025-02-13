@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const useTemplateExecute = () => {
     const user = useSelector((store) => store.user?.uid)
     const parser = new Parser();
-    const processTemplate = async (templateStr) => {
+    const processTemplate = async (templateStr,templateTitle) => {
         try {
             if (!user) {
                 throw new Error("User not authenticated")
@@ -15,18 +15,15 @@ const useTemplateExecute = () => {
             // console.log(user)
 
             const parsedAST = parser.parse(templateStr);
-            console.log(parsedAST)
             const data = Evaluator(parsedAST);
-            console.log(data)
             const docData = {
+                templateTitle:templateTitle,
                 AST: parsedAST,
                 data: data,
                 templateStr: templateStr,
                 prompts: [],
             };
-            console.log(docData)
             const docRef = await addDoc(collection(database, user), docData);
-            console.log(docRef)
             return docRef.id;
         } catch (error) {
             console.error("Error processing template:", error);

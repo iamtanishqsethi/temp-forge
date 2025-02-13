@@ -8,6 +8,7 @@ import useFetchTemplates from "../../Hooks/useFetchTemplates";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 const NewTemplate=()=>{
     const [template, setTemplate] = useState("")
+    const [templateTitle,setTemplateTitle] = useState("")
     const [isProcessing, setIsProcessing] = useState(false)
     const processTemplate = useTemplateExecute()
     const navigate = useNavigate()
@@ -21,7 +22,7 @@ const NewTemplate=()=>{
         }
         setIsProcessing(true)
         try {
-            const templateId = await processTemplate(template);
+            const templateId = await processTemplate(template,templateTitle);
             if (templateId) {
                 navigate(`/template/created/${templateId}/new`)
             } else {
@@ -36,7 +37,7 @@ const NewTemplate=()=>{
     };
     return (
         <div
-            className={'flex  items-center justify-between w-full h-screen bg-white text-black font-inter '}>
+            className={'flex  items-center justify-between w-full h-screen bg-white text-black font-inter px-7'}>
                 <div className={'w-[35%] h-full  flex flex-col items-center justify-center p-4 '}>
                     <div className={'mb-5 mt-12 bg-custom-img bg-object-cover bg-object-center rounded-3xl w-full h-[30%] flex items-center justify-center'}>
                         <h1 className={'text-7xl text-white '}>step 01</h1>
@@ -95,8 +96,14 @@ const NewTemplate=()=>{
                             TEMPLATE
                         </h1>
                         <div className={'h-[3px] w-full bg-zinc-300 rounded-lg my-2'}></div>
+                        <input type="text"
+                                className={'text-black   w-full mx-2  outline-none p-2'}
+                               placeholder={'Enter Template Title'}
+                               onChange={(e)=>setTemplateTitle(e.target.value)}
+                        />
+                        <div className={'h-[3px] w-full bg-zinc-300 rounded-lg my-2'}></div>
                         <textarea
-                            className="text-black bg-transparent w-full my-4 mx-2 h-3/5 outline-none p-4"
+                            className="text-black  w-full m-2 h-3/5 outline-none p-2"
                             placeholder="Enter the template here"
                             onChange={(e) => setTemplate(e.target.value)}
                         />

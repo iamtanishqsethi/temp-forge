@@ -1,7 +1,7 @@
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
 import React from "react";
 
-const CurrentTemplate=({template})=>{
+const CurrentTemplate=({template,title})=>{
 
     return(
 
@@ -19,10 +19,18 @@ const CurrentTemplate=({template})=>{
                 </svg>
                 <h1 className={'text-xl'}>TEMPLATE</h1>
             </div>
-            <textarea className={'w-full h-[95%] m-1 p-1.5  outline-none border-2 border-zinc-200 rounded-2xl'}
-                            required={true}
-                                  value={template}
-                        ></textarea>
+            <div className={'border border-zinc-200 rounded-xl'}>
+                <input type="text"
+                       readOnly={true}
+                       value={title}
+                       className={'w-full  mx-1 p-1  outline-none '}
+                />
+                <textarea className={'w-full h-[30%] m-1 p-1  outline-none '}
+                          required={true}
+                          value={template}
+                ></textarea>
+            </div>
+
         </div>
 
     )

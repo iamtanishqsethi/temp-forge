@@ -14,6 +14,7 @@ const Header=()=>{
     const location = useLocation();
     const path = location.pathname;
     const user = useSelector((store) => store.user?.uid)
+    const profileIMG=useSelector((state)=>state.user?.photoURL);
 
     const[hidden,setHidden]=useState(false);
     const [isLanding,setIsLanding]=useState(false);
@@ -58,7 +59,7 @@ const Header=()=>{
 
     return (
         <div className={'w-screen flex flex-col items-center font-inter'}>
-            <div className={`${hidden?'hidden':'fixed'} w-screen z-10 bg-white  px-4 py-4  flex items-center justify-between`}>
+            <div className={`${hidden?'hidden':'fixed'} w-screen z-10 bg-white  px-10 py-4  flex items-center justify-between`}>
                 <div className={'flex items-center'}>
 
                     <Link to={userId?("/welcome"):("/")}>
@@ -75,17 +76,17 @@ const Header=()=>{
 
                     </Link>
                 </div>
-                {isLanding && <ul className={'flex items-center justify-center space-x-4 text-lg'}>
+                {isLanding && <ul className={'flex items-center justify-center space-x-4 text-lg px-10'}>
 
                     <li><button className={'px-7 py-2 mx-2 text-sm bg-black text-white  rounded-full'} onClick={()=>navigate('/login')}>Sign in</button></li>
                 </ul>
                 }
-                {userId && <div className={'flex items-center justify-center space-x-2'}>
+                {userId && <div className={'flex items-center justify-center space-x-2 px-10'}>
                     {/*<Link to={'/public'}><h1>Templates</h1></Link>*/}
                     <button className={'px-7 py-2 mx-2 text-sm bg-black text-white  rounded-full'} onClick={handleSignOut}>
                         Log Out
                     </button>
-                    <button className={'bg-blue-900 hover:bg-blue-600 p-2 text-white rounded'} onClick={()=>navigate(`/profile/${userId}`)}>Profile</button>
+                    <button className={'  text-black rounded'} onClick={()=>navigate(`/profile/${userId}`)}><img src={profileIMG} alt="" className={'h-11 w-11  rounded-full object-cover'}/></button>
                 </div>}
             </div>
         </div>

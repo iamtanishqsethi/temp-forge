@@ -65,14 +65,10 @@ const ExistingPrompt=()=>{
             <div className={'   flex justify-between w-full h-[58%] '}>
                 <div className={'w-[49%] h-full  flex flex-col items-center justify-between'}>
                     <InputBox data={currentPrompt?.data}/>
-                    <CurrentTemplate template={currentTemplate?.templateStr}/>
+                    <CurrentTemplate template={currentTemplate?.templateStr} title={currentTemplate?.templateTitle}/>
                 </div>
                 <Output value={currentPrompt?.value}/>
             </div>
-            {/*<div className={'   flex  w-full h-[58%] '}>*/}
-            {/*    <InputBox data={currentPrompt?.data}/>*/}
-            {/*    <CurrentTemplate template={currentTemplate?.templateStr}/>*/}
-            {/*</div>*/}
 
         </div>
     )
