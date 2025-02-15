@@ -1,20 +1,44 @@
-import Suggestions from "./Suggestions";
-import TemplateBox from "./TemplateBox";
-import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import React, {useState} from "react";
 import useTemplateExecute from "../../Hooks/useTemplateExecute";
 import {useNavigate} from "react-router-dom";
 import useFetchTemplates from "../../Hooks/useFetchTemplates";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import Footer from "../Footer";
+import model from "../../Utils/gemini";
 const NewTemplate=()=>{
     const [template, setTemplate] = useState("")
+    const [prompt, setPrompt] = useState("")
     const [templateTitle,setTemplateTitle] = useState("")
     const [isProcessing, setIsProcessing] = useState(false)
+    const [sideBarMsg,setSideBarMsg] = useState("tRules")
     const processTemplate = useTemplateExecute()
     const navigate = useNavigate()
 
     useFetchTemplates()
+
+    const handelPrompt=async ()=>{
+        if (!prompt.trim()) {
+            alert("Please enter a valid prompt.")
+            return
+        }
+        setIsProcessing(true)
+        try {
+            const message = `Act as a ai prompt template generator and generate a prompt template for ${prompt} the variables in the prompt must be enclosed in "{{ }}" . Only give the template and the template should be well structured `;
+            const result = await model.generateContent(message);
+            const templateId = await processTemplate(result.response.text(),templateTitle);
+            if (templateId) {
+                navigate(`/template/created/${templateId}/new`)
+            } else {
+                alert("Failed to process the template. Please try again.")
+            }
+        } catch (error) {
+            alert("Failed to process the template. Please try again.")
+        }
+        finally {
+            setIsProcessing(false)
+        }
+    }
 
     const handleExecute = async () => {
         if (!template.trim()) {
@@ -44,8 +68,66 @@ const NewTemplate=()=>{
                     <div className={'mb-5 mt-12 bg-custom-img bg-object-cover bg-object-center rounded-3xl w-full h-[28%] flex items-center justify-center'}>
                         <h1 className={'text-7xl text-white '}><span className={'text-8xl'}>01</span> step</h1>
                     </div>
-                    <div className={'bg-lightGreen rounded-3xl w-full h-[60%] relative'}>
-                        <svg className={'absolute bottom-4 right-4'} width="105" height="108" viewBox="0 0 105 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <div className={'bg-lightGreen rounded-3xl w-full h-[60%] relative p-6'}
+                    >
+                        <div className={'flex items-center justify-start space-x-4'}>
+                            <button
+                                onClick={()=>setSideBarMsg("tRules")}
+                                className={`text-sm  ${sideBarMsg==="tRules"?"bg-black text-lightGreen":"border-2 border-black"} rounded-full px-3.5 py-2`}>Template Rules</button>
+                            <button onClick={()=>setSideBarMsg("pTips")}
+                                    className={`text-sm  ${sideBarMsg==="pTips"?"bg-black text-lightGreen":"border-2 border-black"} rounded-full px-3.5 py-2`}>Prompt Rules</button>
+                            <button onClick={()=>setSideBarMsg("ai")}
+                                    className={`text-sm  ${sideBarMsg==="ai"?"bg-gradient-to-br from-purple-700 via-violet-600 to-cyan-500 text-white font-medium":"border-2 border-black"} rounded-full px-3.5 py-2`}>AI <span ><AutoAwesomeIcon /></span></button>
+                        </div>
+                        <p className={'p-6 my-2 '}>
+                            {
+                                sideBarMsg==="ai"?
+                                    <div>
+                                        <h1 className={'text-2xl font-medium'}>Having trouble figuring out the Template needs ? </h1>
+                                        <p className={'text-lg py-3'}>Use Gemini for creating the perfect template for your needs</p>
+
+                                    </div>
+
+                                    :""
+                            }
+                            {
+                                sideBarMsg==="pTips"?<ul className="list-disc list-inside  space-y-3">
+                                    <li>
+                                        Be <span className="text-blue-700 font-semibold">specific</span> and provide{" "}
+                                        <span className="text-blue-700 font-semibold">context</span>.
+                                    </li>
+                                    <li>
+                                        Use examples, e.g.,{" "}
+                                        <blockquote className="bg-zinc-800 text-white px-3 py-1 rounded italic mt-1">
+                                            "Rewrite: 'Can't attend' → 'I will be unable to attend.'"
+                                        </blockquote>
+                                    </li>
+                                    <li>Break down tasks into simple steps.</li>
+                                    <li>
+                                        Refine prompts by rephrasing or adding constraints.
+                                    </li>
+                                </ul>:""
+                            }
+                            {
+                                sideBarMsg==="tRules"?<ul className="list-disc list-inside  space-y-3">
+                                    <li>
+                                        Enclose variables in{" "}
+                                        <span className="text-blue-800 font-mono">{"{{ }}"}</span>, e.g.,{" "}
+                                        <span className="bg-zinc-600 text-zinc-200 px-2 py-1 rounded font-mono">
+                  {"{{username}}"}
+                </span>.
+                                    </li>
+                                    <li>
+                                        Use clear variable names like{" "}
+                                        <span className="bg-zinc-600 text-zinc-200 px-2 py-1 rounded font-mono">
+                  {"{{product_name}}"}
+                </span>.
+                                    </li>
+                                    <li>Document required variables for clarity.</li>
+                                </ul>:""
+                            }
+                        </p>
+                        <svg className={'absolute bottom-4 right-4 '} width="105" height="108" viewBox="0 0 105 108" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M43.8 107.7L44.4 66.3L8.7 88.2L2.23517e-07 74.7L37.2 52.8L1.2 31.2L9.9 18L44.1 39.3L43.8 -1.43051e-05H60L59.7 39L93.6 18L102.6 31.2L66.6 52.8L104.1 74.7L94.8 88.2L59.4 66.3L60 107.7H43.8Z" fill="white"/>
                         </svg>
 
@@ -87,24 +169,53 @@ const NewTemplate=()=>{
                             TEMPLATE
                         </h1>
                         <div className={'h-[3px] w-full bg-zinc-300 rounded-lg my-2'}></div>
-                        <input type="text"
-                               className={'text-black   w-full mx-2  outline-none p-2'}
-                               placeholder={'Enter Template Title'}
-                               onChange={(e)=>setTemplateTitle(e.target.value)}
-                        />
-                        <div className={'h-[3px] w-full bg-zinc-300 rounded-lg my-2'}></div>
-                        <textarea
-                            className="text-black  w-full m-2 h-3/5 outline-none p-2"
-                            placeholder="Enter the template here"
-                            onChange={(e) => setTemplate(e.target.value)}
-                        />
-                        <button
-                            className="bg-custom-img bg-object-cover bg-object-center text-white px-5 py-3 m-4 rounded-full"
-                            onClick={handleExecute}
-                            disabled={isProcessing}
-                        >
-                            {isProcessing?'Processing...':'Create Template '}<CallMadeIcon />
-                        </button>
+                        {sideBarMsg==="ai"?
+                            <>
+                                <input type="text"
+                                       className={'text-black font-bold placeholder:font-bold placeholder:text-black  w-full mx-2  outline-none p-2'}
+                                       placeholder={'Enter Template Title'}
+                                       onChange={(e)=>setTemplateTitle(e.target.value)}
+                                />
+                                <div className={'h-[3px] w-full bg-zinc-300 rounded-lg my-2'}></div>
+                                <textarea
+                                    className="text-black  w-full m-2 h-3/5 outline-none p-2"
+                                    placeholder="Enter the Prompt here"
+                                    onChange={(e) => setPrompt(e.target.value)}
+                                />
+                                <div className={'w-full flex items-center justify-end'}>
+                                    <button
+                                        className="bg-custom-img bg-object-cover  text-white px-4 py-2.5 m-2 rounded-full text-sm"
+                                        onClick={handelPrompt}
+                                        disabled={isProcessing}
+                                    >
+                                        {isProcessing?'Processing...':'Create Template '}<AutoAwesomeIcon/>
+                                    </button>
+                                </div>
+                            </>
+                            :<>
+                                <input type="text"
+                                       className={'text-black font-bold placeholder:font-bold placeholder:text-black  w-full mx-2  outline-none p-2'}
+                                       placeholder={'Enter Template Title'}
+                                       onChange={(e)=>setTemplateTitle(e.target.value)}
+                                />
+                                <div className={'h-[3px] w-full bg-zinc-300 rounded-lg my-2'}></div>
+                                <textarea
+                                    className="text-black  w-full m-2 h-3/5 outline-none p-2"
+                                    placeholder="Enter the template here"
+                                    onChange={(e) => setTemplate(e.target.value)}
+                                />
+                                <div className={'w-full flex items-center justify-end'}>
+                                    <button
+                                        className="bg-custom-img bg-object-cover  text-white px-4 py-2.5 m-2 rounded-full text-sm"
+                                        onClick={handleExecute}
+                                        disabled={isProcessing}
+                                    >
+                                        {isProcessing?'Processing...':'Create Template '}<CallMadeIcon />
+                                    </button>
+                                </div>
+                            </>}
+
+
                     </div>
                 </div>
             </div>
