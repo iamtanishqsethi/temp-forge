@@ -2,7 +2,7 @@ import {Outlet} from "react-router-dom";
 
 const Template = () => {
     return (
-        <div className={'px-6'}>
+        <div className={''}>
             <Outlet/>
         </div>
     )

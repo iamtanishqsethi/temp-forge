@@ -25,7 +25,7 @@ const CurrentTemplate=({template,title})=>{
                        value={title}
                        className={'w-full  mx-1 p-1  outline-none '}
                 />
-                <textarea className={'w-full h-[30%] m-1 p-1  outline-none '}
+                <textarea className={'w-full h-[55%] m-1 p-1  outline-none '}
                           required={true}
                           value={template}
                 ></textarea>

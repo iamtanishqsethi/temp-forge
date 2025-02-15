@@ -11,7 +11,7 @@ const PreviousPrompts=()=>{
 
 
     return (
-        <div className={'border-2 border-black rounded-3xl w-full h-[43%] p-6 flex flex-col items-center '}>
+        <div className={'border-2 border-black rounded-3xl w-full h-[50vh] p-6 flex flex-col items-center '}>
             <div className={'flex items-center justify-end w-full'}>
                 <button
                     onClick={()=>navigate(`/template/created/${id}/new`)}
