@@ -1,8 +1,5 @@
-import MenuIcon from '@mui/icons-material/Menu';
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {openSideBar} from "../Utils/configSlice";
-import WhatshotIcon from "@mui/icons-material/Whatshot";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {auth} from "../Utils/firebase-config";
 import {onAuthStateChanged, signOut} from "firebase/auth";
@@ -23,7 +20,7 @@ const Header=()=>{
         if(path==='/login'){
             setHidden(true);
         }
-        else if(path==='/' || (!user && path==='/public')){
+        else if(path==='/'||path==='/welcome'){
             setIsLanding(true);
         }
         else{
@@ -60,7 +57,7 @@ const Header=()=>{
     return (
         <div className={'w-screen flex flex-col items-center font-inter'}>
             <div className={`${hidden?'hidden':'fixed'} w-screen z-10 bg-white  px-10 py-4  flex items-center justify-between`}>
-                <div className={'flex items-center'}>
+                <div className={'flex items-center justify-between space-x-16'}>
 
                     <Link to={userId?("/welcome"):("/")}>
                         <svg width="74" height="37" viewBox="0 0 74 37" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -73,16 +70,20 @@ const Header=()=>{
                             <rect y="27.7878" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 0 27.7878)" fill="black"/>
                             <rect x="18.5759" y="27.7878" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 18.5759 27.7878)" fill="black"/>
                         </svg>
-
                     </Link>
+                    {!isLanding && <>
+                        <h1 className={' font-medium cursor-pointer'} onClick={()=>navigate("/welcome")}>Home</h1>
+                        <h1 className={' font-medium cursor-pointer'} onClick={()=>navigate("/public")}>Explore Templates</h1>
+                    </>}
+
+
                 </div>
-                {isLanding && <ul className={'flex items-center justify-center space-x-4 text-lg px-10'}>
+                {!user && <ul className={'flex items-center justify-center space-x-4 text-lg px-10'}>
 
                     <li><button className={'px-7 py-2 mx-2 text-sm bg-black text-white  rounded-full'} onClick={()=>navigate('/login')}>Sign in</button></li>
                 </ul>
                 }
                 {userId && <div className={'flex items-center justify-center space-x-2 px-10'}>
-                    {/*<Link to={'/public'}><h1>Templates</h1></Link>*/}
                     <button className={'px-7 py-2 mx-2 text-sm bg-black text-white  rounded-full'} onClick={handleSignOut}>
                         Log Out
                     </button>
