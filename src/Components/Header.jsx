@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, matchPath, useLocation, useNavigate} from "react-router-dom";
 import {auth} from "../Utils/firebase-config";
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import {addUser, removeUser} from "../Utils/userSlice";
@@ -15,19 +15,28 @@ const Header=()=>{
 
     const[hidden,setHidden]=useState(false);
     const [isLanding,setIsLanding]=useState(false);
+    const [isProfile,setIsProfile]=useState(false);
 
-    useEffect(()=>{
-        if(path==='/login'){
+    useEffect(() => {
+        if (path === '/login') {
             setHidden(true);
-        }
-        else if(path==='/'||path==='/welcome'){
+            setIsLanding(false);
+            setIsProfile(false);
+        } else if (path === '/' || path === '/welcome') {
             setIsLanding(true);
-        }
-        else{
+            setHidden(false);
+            setIsProfile(false);
+        } else if (matchPath("/profile/:id", path) || path === "/profile") {
+            setIsProfile(true);
             setHidden(false);
             setIsLanding(false);
+        } else {
+            setHidden(false);
+            setIsLanding(false);
+            setIsProfile(false);
         }
-    },[path])
+    }, [path]);
+
 
 
     const userId=useSelector((state)=>state.user);
@@ -83,7 +92,7 @@ const Header=()=>{
                     <li><button className={'px-7 py-2 mx-2 text-sm bg-black text-white  rounded-full'} onClick={()=>navigate('/login')}>Sign in</button></li>
                 </ul>
                 }
-                {userId && <div className={'flex items-center justify-center space-x-2 px-10'}>
+                {userId && !isProfile && <div className={'flex items-center justify-center space-x-2 px-10'}>
                     <button className={'px-7 py-2 mx-2 text-sm bg-black text-white  rounded-full'} onClick={handleSignOut}>
                         Log Out
                     </button>

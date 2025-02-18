@@ -14,6 +14,7 @@ module.exports = {
       },
       backgroundImage: {
         'custom-img': "url('/src/Assets/img_1.png')",
+        'custom-img2': "url('/src/Assets/img_5.png')",
         'brain-img': "url('/src/Assets/img_3.png')",
       }
     },

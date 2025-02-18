@@ -14,6 +14,7 @@ import Template from "./Components/Template";
 import Landing from "./Components/Landing";
 import ProfilePage from "./Components/Profile/ProfilePage";
 import PublicTemplates from "./Components/PublicTemplates";
+import Vault from "./Components/Vault";
 
 function App() {
   const appRouter=createBrowserRouter([
@@ -40,6 +41,10 @@ function App() {
               {
                   path:'/profile/:id',
                   element:<ProfilePage/>
+              },
+              {
+                  path:'/vault',
+                  element:<Vault/>
               },
               {
                 path:'/template',

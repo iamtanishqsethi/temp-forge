@@ -1,72 +1,68 @@
 import {useSelector} from "react-redux";
-import useFetchTemplates from "../../Hooks/useFetchTemplates";
-import {addDoc, collection, deleteDoc, doc} from "firebase/firestore";
-import {database} from "../../Utils/firebase-config";
+import {auth, database} from "../../Utils/firebase-config";
 import {Link, useNavigate} from "react-router-dom";
-import SideBarTemplate from "../SideBarTemplate";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from '@mui/icons-material/Add';
+import Footer from "../Footer";
+import HoverWrapper from "../HowerWrapper";
+import {signOut} from "firebase/auth";
 
 const ProfilePage=()=>{
     const navigate = useNavigate()
     const userId=useSelector((state)=>state.user?.uid);
+    const email = useSelector((state)=>state.user?.email);
     const profileIMG=useSelector((state)=>state.user?.photoURL);
     const displayName=useSelector((state)=>state.user?.displayName);
-    const templatesArr=useSelector((store)=>store.templates.templatesArr)
-    useFetchTemplates()
 
-    const handleDelete = async (id)=>{
-        await deleteDoc(doc(database,userId,id))
-        // dispatch(setTemplates(templatesArr.filter((temp)=>temp.id!==id)))
+    const handleShowVault=()=>{
+        navigate('/vault')
     }
-    const handleAddPublic=async (id)=>{
-        const currentTemplate=templatesArr.find((item)=>item.id===id)
-
-        try{
-            const docRef =await addDoc(collection(database,"public"),currentTemplate)
-        }
-        catch (error){
-            console.log('error adding to public database')
-        }
+    const handleCreate=()=>{
+        navigate('/template/new')
+    }
+    const handleSignOut=()=>{
+        signOut(auth)
+        navigate('/')
     }
 
     return(
-        <div className={'h-screen flex flex-col items-center justify-center font-inter'}>
-            <h1 className={'text-2xl'}>Profile Page</h1>
-            <img src={profileIMG} alt="" className={'h-24 w-24 m-2 rounded-full object-cover'}/>
-            <h1 className="text-lg">{displayName}</h1>
-            <h2 className="text-xl my-5">Templates</h2>
-            <button  className={'bg-blue-700 px-6 py-2 rounded-lg font-medium '}
-                    onClick={()=>navigate("/template/new")}>
-            Create New</button>
-            <div className={'flex flex-wrap items-center '}>
-                {
-                    templatesArr.length>0?(
-                        templatesArr.map((item,index)=>(
-                            <div className={'flex'}>
-                                <Link to={`/template/created/${item.id}/new`}><SideBarTemplate key={index} templateData={item} /></Link>
-                                <button
-                                    className={'bg-red-600 text-white my-2  px-1 border-l-2 border-gray-500 bg-gradient-to-tl from-zinc-700 to-zinc-800 hover:from-red-600 hover:to-red-700 hover:bg-gradient-to-r transition-colors ease-in-out'}
-                                    onClick={()=>handleDelete(item.id)}>
-                                    <DeleteIcon/>
-                                </button>
-                                <button
-                                    className={' text-white my-2 rounded-r-lg px-1 border-l-2 border-gray-500 bg-gradient-to-tl from-zinc-700 to-zinc-800 hover:from-blue-600 hover:to-blue-700 hover:bg-gradient-to-r transition-colors ease-in-out'}
-                                    onClick={()=>handleAddPublic(item.id)}>
-                                    <AddIcon/>
-                                </button>
+        <div>
+            <div className={'min-h-screen flex flex-col items-center  font-inter  mx-10 mt-14 py-6'}>
+                <div className={'bg-custom-img2  bg-object-cover bg-object-center rounded-t-3xl w-full h-[40vh]'}>
+
+                </div>
+                <div className={' rounded-b-3xl w-full h-[60vh] '}>
+                    <div className={'flex items-center justify-between w-full z-10 -mt-24 px-4'}>
+                        <div className="flex items-end justify-center space-x-4">
+                            <img src={profileIMG} alt="" className={'h-48 w-48 m-2 rounded-full object-cover'}/>
+                            <div className={'mb-7'}>
+                                <h1 className={'text-4xl font-medium'}>{displayName}</h1>
+                                <h1 className={' text-xl'}>{email}</h1>
                             </div>
 
-                        ))
-                    ):(
-                        <div>No templates available</div>
-                    )
-                }
+                        </div>
+                        <div className={'flex items-end justify-center space-x-16 text-zinc-500 text-lg pt-14 pr-6'}>
+                            <h1>Templates : 22</h1>
+                            <h1>Saved By : 22</h1>
+                            <h1>Templates : 22</h1>
+                        </div>
+                    </div>
+                    <div className={'flex items-center justify-start space-x-8 px-6 my-3'}>
+                        <button className={'px-7 py-2.5 bg-black text-white rounded-full '}>Edit Profile</button>
+                        <button
+                            onClick={handleSignOut}
+                            className={'px-7 py-2.5 bg-black text-white rounded-full '}>Log Out</button>
+                    </div>
+                    <div className={'w-full flex items-center justify-center space-x-4 mx-4 my-8'}>
+                        <HoverWrapper title={'Show Vault'} desc={'Access your vault full of templates created, generated or saved by you.'} func={handleShowVault}/>
+                        <HoverWrapper title={'Create New'} desc={'Create a new template specific to your needs'} func={handleCreate}/>
+                        <HoverWrapper title={'Show Vault'} desc={'Access your vault full of templates created, generated or saved by you.'} func={handleShowVault}/>
 
+                    </div>
+                </div>
 
             </div>
-
+            <Footer/>
         </div>
+
     )
 }
 export default ProfilePage;
