@@ -6,10 +6,17 @@ import useFetchTemplates from "../../Hooks/useFetchTemplates";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import Footer from "../Footer";
 import model from "../../Utils/gemini";
+import {useSelector} from "react-redux";
+
+
 const NewTemplate=()=>{
-    const [template, setTemplate] = useState("")
+
+    const templateT=useSelector(store=>store.edit.title)
+    const templateS=useSelector(store=>store.edit.template)
+
     const [prompt, setPrompt] = useState("")
-    const [templateTitle,setTemplateTitle] = useState("")
+    const [templateTitle,setTemplateTitle] = useState(templateT)
+    const [template, setTemplate] = useState(templateS)
     const [isProcessing, setIsProcessing] = useState(false)
     const [sideBarMsg,setSideBarMsg] = useState("tRules")
     const processTemplate = useTemplateExecute()
@@ -194,12 +201,14 @@ const NewTemplate=()=>{
                             </>
                             :<>
                                 <input type="text"
+                                       value={templateTitle}
                                        className={'text-black font-bold placeholder:font-bold placeholder:text-black  w-full mx-2  outline-none p-2'}
                                        placeholder={'Enter Template Title'}
                                        onChange={(e)=>setTemplateTitle(e.target.value)}
                                 />
                                 <div className={'h-[3px] w-full bg-zinc-300 rounded-lg my-2'}></div>
                                 <textarea
+                                    value={template}
                                     className="text-black  w-full m-2 h-3/5 outline-none p-2"
                                     placeholder="Enter the template here"
                                     onChange={(e) => setTemplate(e.target.value)}
