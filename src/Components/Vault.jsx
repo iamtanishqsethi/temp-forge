@@ -9,6 +9,7 @@ import {useNavigate} from "react-router-dom";
 const Vault=()=>{
     const navigate = useNavigate();
     const userId=useSelector((state)=>state.user?.uid);
+    const displayName=useSelector((state)=>state.user.displayName);
     const templatesArr=useSelector((store)=>store.templates.templatesArr)
     useFetchTemplates()
 
@@ -18,9 +19,14 @@ const Vault=()=>{
     }
     const handleAddPublic=async (id)=>{
         const currentTemplate=templatesArr.find((item)=>item.id===id)
+        const modifiedTemplate={
+            ...currentTemplate,
+            displayName
+        }
+
 
         try{
-            const docRef =await addDoc(collection(database,"public"),currentTemplate)
+            const docRef =await addDoc(collection(database,"public"),modifiedTemplate)
         }
         catch (error){
             console.log('error adding to public database')
