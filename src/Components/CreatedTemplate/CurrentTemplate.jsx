@@ -1,11 +1,10 @@
-import DonutSmallIcon from "@mui/icons-material/DonutSmall";
-import React from "react";
+import {useSelector} from "react-redux";
 
 const CurrentTemplate=({template,title})=>{
-
+    const isShowHistory = useSelector(store => store.config.showHistory);
     return(
 
-        <div className={'h-[40%] w-full rounded-3xl border-2 border-black p-6 flex flex-col'}>
+        <div className={`${!isShowHistory?'h-[50vh]':'h-[48%]'} w-full rounded-3xl border-2 border-black p-6 flex flex-col`}>
             <div className={'flex space-x-4'}>
                 <svg width="44" height="25" viewBox="0 0 39 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="6.69708" height="6.69708" rx="2" transform="matrix(0.70848 -0.70573 0.70848 0.70573 19.7607 5.31982)" fill="black"/>
@@ -19,13 +18,13 @@ const CurrentTemplate=({template,title})=>{
                 </svg>
                 <h1 className={'text-xl'}>TEMPLATE</h1>
             </div>
-            <div className={'border border-zinc-200 rounded-xl'}>
+            <div className={'border border-zinc-200 rounded-xl h-[90%]'}>
                 <input type="text"
                        readOnly={true}
                        value={title}
-                       className={'w-full  mx-1 p-1  outline-none '}
+                       className={'w-full  mx-1 p-1  outline-none text-lg font-medium'}
                 />
-                <textarea className={'w-full h-[55%] m-1 p-1  outline-none '}
+                <textarea className={'w-full h-[80%] m-1 p-1  outline-none '}
                           required={true}
                           value={template}
                 ></textarea>

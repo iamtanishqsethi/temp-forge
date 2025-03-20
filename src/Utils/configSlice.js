@@ -4,6 +4,7 @@ const configSlice=createSlice({
     name:'config',
     initialState:{
         isSidebarOpen:false,
+        showHistory:true,
     },
     reducers:{
         openSideBar(state){
@@ -14,9 +15,12 @@ const configSlice=createSlice({
         },
         toggleSideBar(state){
             state.isSidebarOpen=!state.isSidebarOpen
+        },
+        toggleShowHistory(state){
+            state.showHistory=!state.showHistory
         }
 
     }
 })
-export const{openSideBar,closeSideBar,toggleSideBar}=configSlice.actions
+export const{openSideBar,closeSideBar,toggleSideBar,toggleShowHistory}=configSlice.actions
 export default configSlice.reducer

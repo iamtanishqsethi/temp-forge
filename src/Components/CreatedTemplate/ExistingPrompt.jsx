@@ -7,6 +7,7 @@ import React from "react";
 
 
 const ExistingPrompt=()=>{
+    const isShowHistory = useSelector(store => store.config.showHistory);
     const { id, promptId } = useParams();
     const navigate = useNavigate();
 
@@ -57,7 +58,7 @@ const ExistingPrompt=()=>{
             <div className={'   flex justify-between w-full h-[70%] '}>
                 <div className={'w-[49%] h-full  flex flex-col items-center justify-between'}>
                     <InputBox data={currentPrompt?.data}/>
-                    <CurrentTemplate template={currentTemplate?.templateStr} title={currentTemplate?.templateTitle}/>
+                    {isShowHistory && <CurrentTemplate template={currentTemplate?.templateStr} title={currentTemplate?.templateTitle}/>}
                 </div>
                 <Output value={currentPrompt?.value}/>
             </div>

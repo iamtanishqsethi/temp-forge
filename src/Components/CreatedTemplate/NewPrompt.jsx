@@ -7,6 +7,8 @@ import React from "react";
 
 
 const NewPrompt=()=>{
+    const isShowHistory = useSelector(store => store.config.showHistory);
+
     const navigate = useNavigate();
     const {id} = useParams();
     const templatesArr=useSelector((store)=>store.templates.templatesArr)
@@ -54,7 +56,7 @@ const NewPrompt=()=>{
             <div className={'   flex justify-between w-full h-[70%] '}>
                 <div className={'w-[49%] h-full  flex flex-col items-center justify-between'}>
                     <NewInput data={currentTemplate?.data}/>
-                    <CurrentTemplate template={currentTemplate?.templateStr} title={currentTemplate?.templateTitle}/>
+                    {isShowHistory && <CurrentTemplate template={currentTemplate?.templateStr} title={currentTemplate?.templateTitle}/>}
                 </div>
                 <EmptyOutput/>
             </div>
