@@ -16,6 +16,7 @@ const Header=()=>{
     const[hidden,setHidden]=useState(false);
     const [isLanding,setIsLanding]=useState(false);
     const [isProfile,setIsProfile]=useState(false);
+    const [showDialog,setShowDialog]=useState(false);
 
     useEffect(() => {
         if (path === '/login') {
@@ -96,7 +97,56 @@ const Header=()=>{
                     <button className={'px-7 py-2 mx-2 text-sm bg-black text-white  rounded-full'} onClick={handleSignOut}>
                         Log Out
                     </button>
-                    <button className={'  text-black rounded'} onClick={()=>navigate(`/profile/${userId}`)}><img src={profileIMG} alt="" className={'h-11 w-11  rounded-full object-cover'}/></button>
+                    <div className={'relative'}>
+                    <button
+                        className={`  text-black bg-lightGreen  flex items-center justify-between p-1 rounded-full  space-x-2`}
+                        // onClick={()=>navigate(`/profile/${userId}`)}
+                        onClick={()=>setShowDialog(!showDialog)}
+                    >
+                        <img src={profileIMG} alt="" className={'h-9 w-9  rounded-full object-cover'}/>
+                        <svg
+
+                            width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 15L7 10H17L12 15Z" fill="#1D1B20"/>
+                        </svg>
+
+                    </button>
+                        <div className={`${showDialog ? 'absolute': 'hidden'}  w-52 right-0 bg-lightGreen rounded-2xl p-5 flex flex-col justify-center`}>
+                            <div
+                                className={'flex items-center space-x-4 w-full my-2 cursor-pointer'}
+                                onClick={()=>{
+                                    navigate(`/profile/${userId}`)
+                                    setShowDialog(false)
+                                }}>
+                                <h1 className={'tex-gray-400 font-medium'}>Profile</h1>
+                                <svg width="22" height="19" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20.9185 2.88188C20.9868 2.29489 20.631 1.77119 20.1237 1.71215L11.8571 0.750165C11.3498 0.691132 10.8832 1.11912 10.8149 1.70611C10.7466 2.2931 11.1024 2.8168 11.6097 2.87583L18.9578 3.73094L17.9683 12.2336C17.9 12.8206 18.2559 13.3443 18.7632 13.4033C19.2705 13.4624 19.7371 13.0344 19.8054 12.4474L20.9185 2.88188ZM1.56203 21.0298L20.562 3.60211L19.438 1.94787L0.437972 19.3755L1.56203 21.0298Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div
+                                className={'flex items-center space-x-4 w-full my-2 cursor-pointer'}
+                                onClick={()=> {
+                                    navigate(`/vault`)
+                                    setShowDialog(false)
+                                }}>
+                                <h1 className={'tex-gray-400 font-medium'}>Vault</h1>
+                                <svg width="22" height="19" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20.9185 2.88188C20.9868 2.29489 20.631 1.77119 20.1237 1.71215L11.8571 0.750165C11.3498 0.691132 10.8832 1.11912 10.8149 1.70611C10.7466 2.2931 11.1024 2.8168 11.6097 2.87583L18.9578 3.73094L17.9683 12.2336C17.9 12.8206 18.2559 13.3443 18.7632 13.4033C19.2705 13.4624 19.7371 13.0344 19.8054 12.4474L20.9185 2.88188ZM1.56203 21.0298L20.562 3.60211L19.438 1.94787L0.437972 19.3755L1.56203 21.0298Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div
+                                className={'flex items-center space-x-4 w-full my-2 cursor-pointer'}
+                                onClick={()=> {
+                                    navigate('/template/new')
+                                    setShowDialog(false)
+                                }}>
+                                <h1 className={'tex-gray-400 font-medium'}>Create New</h1>
+                                <svg width="22" height="19" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20.9185 2.88188C20.9868 2.29489 20.631 1.77119 20.1237 1.71215L11.8571 0.750165C11.3498 0.691132 10.8832 1.11912 10.8149 1.70611C10.7466 2.2931 11.1024 2.8168 11.6097 2.87583L18.9578 3.73094L17.9683 12.2336C17.9 12.8206 18.2559 13.3443 18.7632 13.4033C19.2705 13.4624 19.7371 13.0344 19.8054 12.4474L20.9185 2.88188ZM1.56203 21.0298L20.562 3.60211L19.438 1.94787L0.437972 19.3755L1.56203 21.0298Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
                 </div>}
             </div>
         </div>
