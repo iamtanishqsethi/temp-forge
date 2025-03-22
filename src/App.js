@@ -11,7 +11,6 @@ import NewPrompt from "./Components/CreatedTemplate/NewPrompt";
 import Error from "./Components/Error";
 import Login from "./Components/Login";
 import Template from "./Components/Template";
-import Landing from "./Components/Landing";
 import ProfilePage from "./Components/Profile/ProfilePage";
 import PublicTemplates from "./Components/PublicTemplates";
 import Vault from "./Components/Vault";
@@ -24,7 +23,7 @@ function App() {
           children:[
               {
                   path:"/",
-                  element:<Landing/>
+                  element:<Welcome/>
               },
               {
                   path:'/public',
@@ -33,10 +32,6 @@ function App() {
               {
                   path:'/login',
                   element:<Login/>
-              },
-              {
-                path:'/welcome',
-                element:<Welcome/>
               },
               {
                   path:'/profile/:id',

@@ -52,7 +52,7 @@ const Header=()=>{
             if(user){
                 const {uid,email,displayName,photoURL} = auth.currentUser;
                 dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}));
-                navigate('/welcome')
+                navigate('/')
             }
             else {
                 dispatch(removeUser());
@@ -69,7 +69,7 @@ const Header=()=>{
             <div className={`${hidden?'hidden':'fixed'} w-screen z-10 bg-white  px-10 py-4  flex items-center justify-between`}>
                 <div className={'flex items-center justify-between space-x-16'}>
 
-                    <Link to={userId?("/welcome"):("/")}>
+                    <Link to={"/"}>
                         <svg width="74" height="37" viewBox="0 0 74 37" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="37" y="9.21204" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 37 9.21204)" fill="black"/>
                             <rect x="55.5759" y="9.21204" width="13.0278" height="13.0278" rx="2" transform="rotate(-45 55.5759 9.21204)" fill="black"/>
@@ -82,7 +82,7 @@ const Header=()=>{
                         </svg>
                     </Link>
                     {!isLanding && <>
-                        <h1 className={' font-medium cursor-pointer'} onClick={()=>navigate("/welcome")}>Home</h1>
+                        <h1 className={' font-medium cursor-pointer'} onClick={()=>navigate("/")}>Home</h1>
                         <h1 className={' font-medium cursor-pointer'} onClick={()=>navigate("/public")}>Explore Templates</h1>
                     </>}
 
@@ -111,9 +111,9 @@ const Header=()=>{
                         </svg>
 
                     </button>
-                        <div className={`${showDialog ? 'absolute': 'hidden'}  w-52 right-0 bg-lightGreen rounded-2xl p-5 flex flex-col justify-center`}>
+                        <div className={`${showDialog ? 'absolute': 'hidden'}  w-44 right-0 bg-lightGreen rounded-2xl p-5 flex flex-col justify-center`}>
                             <div
-                                className={'flex items-center space-x-4 w-full my-2 cursor-pointer'}
+                                className={'flex items-center space-x-4 w-full my-2 cursor-pointer text-sm'}
                                 onClick={()=>{
                                     navigate(`/profile/${userId}`)
                                     setShowDialog(false)
@@ -124,7 +124,7 @@ const Header=()=>{
                                 </svg>
                             </div>
                             <div
-                                className={'flex items-center space-x-4 w-full my-2 cursor-pointer'}
+                                className={'flex items-center space-x-4 w-full my-2 cursor-pointer text-sm'}
                                 onClick={()=> {
                                     navigate(`/vault`)
                                     setShowDialog(false)
@@ -135,7 +135,7 @@ const Header=()=>{
                                 </svg>
                             </div>
                             <div
-                                className={'flex items-center space-x-4 w-full my-2 cursor-pointer'}
+                                className={'flex items-center space-x-4 w-full my-2 cursor-pointer text-sm'}
                                 onClick={()=> {
                                     navigate('/template/new')
                                     setShowDialog(false)
