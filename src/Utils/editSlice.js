@@ -10,8 +10,12 @@ const editSlice=createSlice({
         addEdit:(state,action)=>{
             state.title=action.payload.title;
             state.template=action.payload.template;
+        },
+        reset:(state)=>{
+            state.title="";
+            state.template="";
         }
     }
 })
-export const {addEdit} = editSlice.actions;
+export const {addEdit,reset} = editSlice.actions;
 export default editSlice.reducer;

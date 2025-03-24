@@ -1,12 +1,13 @@
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import React, {useState} from "react";
+import  {useState} from "react";
 import useTemplateExecute from "../../Hooks/useTemplateExecute";
 import {useNavigate} from "react-router-dom";
 import useFetchTemplates from "../../Hooks/useFetchTemplates";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import Footer from "../Footer";
 import model from "../../Utils/gemini";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {reset} from "../../Utils/editSlice";
 
 
 const NewTemplate=()=>{
@@ -21,6 +22,7 @@ const NewTemplate=()=>{
     const [sideBarMsg,setSideBarMsg] = useState("tRules")
     const processTemplate = useTemplateExecute()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     useFetchTemplates()
 
@@ -83,7 +85,14 @@ const NewTemplate=()=>{
                                 className={`text-sm  ${sideBarMsg==="tRules"?"bg-black text-lightGreen":"border-2 border-black"} rounded-full px-3.5 py-2`}>Template Rules</button>
                             <button onClick={()=>setSideBarMsg("pTips")}
                                     className={`text-sm  ${sideBarMsg==="pTips"?"bg-black text-lightGreen":"border-2 border-black"} rounded-full px-3.5 py-2`}>Prompt Rules</button>
-                            <button onClick={()=>setSideBarMsg("ai")}
+                            <button onClick={()=>{
+                                setSideBarMsg("ai")
+                                setTemplate('')
+
+                                dispatch(reset())
+
+
+                            }}
                                     className={`text-sm  ${sideBarMsg==="ai"?"bg-gradient-to-br from-purple-700 via-violet-600 to-cyan-500 text-white font-medium":"border-2 border-black"} rounded-full px-3.5 py-2`}>AI <span ><AutoAwesomeIcon /></span></button>
                         </div>
                         <p className={'p-6 my-2 '}>

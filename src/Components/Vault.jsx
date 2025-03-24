@@ -92,9 +92,9 @@ const Vault = () => {
                         </div>
                     </div>
                     <div className="min-h-[75vh] w-full my-3 mx-1">
-                        <Masonry columns={4} spacing={2}>
-                            {filteredTemplatesArr.length > 0 ? (
-                                filteredTemplatesArr.map((item, index) => (
+                        {filteredTemplatesArr.length > 0 ? (
+                            <Masonry columns={4} spacing={2}>
+                                {filteredTemplatesArr.map((item, index) => (
                                     <VaultItem
                                         key={index}
                                         templateData={item}
@@ -102,12 +102,15 @@ const Vault = () => {
                                         handleDelete={() => handleDelete(item.id)}
                                         handlePost={() => handleAddPublic(item.id)}
                                     />
-                                ))
-                            ) : (
-                                <div>No templates found</div>
-                            )}
-                        </Masonry>
+                                ))}
+                            </Masonry>
+                        ) : (
+                            <div className="flex flex-col items-center justify-center text-4xl w-full">
+                                No templates found
+                            </div>
+                        )}
                     </div>
+
                 </div>
             </div>
             <Footer />

@@ -40,8 +40,9 @@ const TransitionComp=()=>{
                     <h1
                         key={feature.title}
                         className={`text-sm px-3 py-1 rounded-full transition-all duration-500 ${
-                            index === currentIndex? 'bg-black text-lightGreen' : 'border-black text-black border-2'}`}
-                    >
+                            index === currentIndex? 'bg-black text-lightGreen' : 'border-black text-black border-2'} cursor-pointer`}
+                        onClick={()=>setCurrentIndex(index)}>
+
                         {feature.title}
                     </h1>
                 ))}

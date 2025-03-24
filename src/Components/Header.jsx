@@ -4,6 +4,7 @@ import {Link, matchPath, useLocation, useNavigate} from "react-router-dom";
 import {auth} from "../Utils/firebase-config";
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import {addUser, removeUser} from "../Utils/userSlice";
+import {reset} from "../Utils/editSlice";
 
 const Header=()=>{
     const dispatch=useDispatch();
@@ -136,9 +137,11 @@ const Header=()=>{
                             </div>
                             <div
                                 className={'flex items-center space-x-4 w-full my-2 cursor-pointer text-sm'}
-                                onClick={()=> {
+                                onClick={async ()=> {
+                                    await dispatch(reset())
                                     navigate('/template/new')
                                     setShowDialog(false)
+
                                 }}>
                                 <h1 className={'tex-gray-400 font-medium'}>Create New</h1>
                                 <svg width="22" height="19" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">

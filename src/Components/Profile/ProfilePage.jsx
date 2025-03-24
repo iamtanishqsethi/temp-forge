@@ -1,12 +1,14 @@
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {auth, database} from "../../Utils/firebase-config";
 import {Link, useNavigate} from "react-router-dom";
 import Footer from "../Footer";
 import HoverWrapper from "../HowerWrapper";
 import {signOut} from "firebase/auth";
+import {reset} from "../../Utils/editSlice";
 
 const ProfilePage=()=>{
     const navigate = useNavigate()
+    const dispatch=useDispatch()
     const userId=useSelector((state)=>state.user?.uid);
     const email = useSelector((state)=>state.user?.email);
     const profileIMG=useSelector((state)=>state.user?.photoURL);
@@ -16,7 +18,9 @@ const ProfilePage=()=>{
         navigate('/vault')
     }
     const handleCreate=()=>{
+        dispatch(reset())
         navigate('/template/new')
+
     }
     const handleSignOut=()=>{
         signOut(auth)
@@ -41,12 +45,12 @@ const ProfilePage=()=>{
                         </div>
                         <div className={'flex items-end justify-center space-x-16 text-zinc-500 text-lg pt-14 pr-6'}>
                             <h1>Templates : 22</h1>
-                            <h1>Saved By : 22</h1>
-                            <h1>Templates : 22</h1>
+                            {/*<h1>Saved By : 22</h1>*/}
+                            {/*<h1>Templates : 22</h1>*/}
                         </div>
                     </div>
                     <div className={'flex items-center justify-start space-x-8 px-6 my-3'}>
-                        <button className={'px-7 py-2.5 bg-black text-white rounded-full '}>Edit Profile</button>
+                        {/*<button className={'px-7 py-2.5 bg-black text-white rounded-full '}>Edit Profile</button>*/}
                         <button
                             onClick={handleSignOut}
                             className={'px-7 py-2.5 bg-black text-white rounded-full '}>Log Out</button>

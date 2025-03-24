@@ -1,12 +1,14 @@
 import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Footer from "../Footer";
 import CountUp from "react-countup";
 import TransitionComp from "./TransitionComp";
 import TickerComp from "./TickerComp";
+import {reset} from "../../Utils/editSlice";
 const Welcome=()=>{
     const navigate = useNavigate();
     const userId=useSelector((store)=>store.user)
+    const dispatch = useDispatch();
 
     return (
         <div className="min-h-screen mt-20 flex flex-col items-center font-inter overflow-y-auto">
@@ -53,7 +55,11 @@ const Welcome=()=>{
                     <div className={'m-2  py-1 pl-8 flex items-center w-full space-x-5'}>
                         {userId ? <button
                             className={'m-2 bg-black rounded-full text-lg text-white py-1 px-5'}
-                            onClick={()=>navigate('/template/new')}
+                            onClick={()=>{
+                                dispatch(reset())
+                                navigate('/template/new')
+
+                            }}
                         >Create Templates</button> : <button
                             className={'m-2 bg-black rounded-full text-lg text-white py-1 px-8'}
                             onClick={()=>navigate('/login')}
