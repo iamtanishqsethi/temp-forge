@@ -2,6 +2,8 @@ import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import Footer from "../Footer";
 import CountUp from "react-countup";
+import TransitionComp from "./TransitionComp";
+import TickerComp from "./TickerComp";
 const Welcome=()=>{
     const navigate = useNavigate();
     const userId=useSelector((store)=>store.user)
@@ -102,66 +104,8 @@ const Welcome=()=>{
             </div>
 
             <div className="flex justify-between items-center text-center px-12 w-full h-[75vh]">
-                <div className={'h-[75vh] w-[49.5%] flex flex-col items-center  justify-center'}>
-                    <div className="h-[50%] w-full relative rounded-3xl m-2 flex items-center justify-between overflow-hidden group">
-                        <div
-                            className="absolute inset-0 bg-brain-img bg-center bg-cover transition-transform duration-300 group-hover:scale-110"
-                        ></div>
-                        <div className="relative z-10">
-                            <h1 className="text-5xl p-2 mx-4 font-light text-left text-white w-[45%] group-hover:scale-105 transition-transform duration-300">
-                                prompt+
-                            </h1>
-                        </div>
-                        <div className="relative z-10 text-5xl p-2 mx-4 font-light text-right text-white w-[45%] group-hover:scale-105 transition-transform duration-300">
-                            EVERY INCREASING USER
-                        </div>
-                    </div>
-                    <div className={'h-[50%] flex items-center justify-between w-full font-light'}>
-                        <div className={'p-8 text-2xl h-full m-2 rounded-3xl w-[49.5%] bg-zinc-200 text-black flex flex-col items-center justify-center'}>
-                            <h1 className={'text-6xl hover:scale-110 transition-transform ease-in-out duration-300'}>
-                                <CountUp
-                                    start={0}
-                                    end={10000}
-                                    duration={2.5}
-                                    separator=""
-                                    enableScrollSpy
-                                    scrollSpyDelay={150}
-                                />
-                                +
-                            </h1>
-                            <h1>Ideas</h1>
-                        </div>
-                        <div className={'p-8 text-2xl h-full m-2 rounded-3xl w-[49.5%] bg-black text-white flex flex-col items-center justify-center'}>
-                            <h1 className={'text-6xl hover:scale-110 transition-transform ease-in-out duration-300'}><CountUp
-                                start={0}
-                                end={1000}
-                                duration={2.5}
-                                separator=""
-                                enableScrollSpy
-                                scrollSpyDelay={150}
-                            />+</h1>
-                            <h1>Templates To choose from</h1>
-                        </div>
-                    </div>
-                </div>
-                <div className={'bg-lightGreen h-[75vh] w-[49.5%] rounded-3xl text-black text-left p-8 relative'}>
-                    <h1 className={'text-6xl font-extrabold my-2 '}>Why TempForge ?</h1>
-                    <div className={'flex items-center my-6 space-x-4'}>
-                        <h1 className={'bg-black text-lightGreen text-sm px-3 py-1 rounded-full '}>Personalized Storage</h1>
-                        <h1 className={'border-black text-black border-2 text-sm px-3 py-1 rounded-full '}>Post Your Prompts and get reactions</h1>
-                        <h1 className={'border-black text-black border-2 text-sm px-3 py-1 rounded-full '}>AI</h1>
-                    </div>
-                    <h1 className={'text-[6.5rem]/[1] my-4 font-medium'}>Accessible</h1>
-                    <div className={'h-[3.5px] w-[80%] bg-black rounded-full'}></div>
-                    <p className={'text-sm text-black py-8 w-[70%]'}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam vehicula ullamcorper orci eget malesuada. Nulla nec sem eget felis lobortis sollicitudin
-                        eu ac augue. Maecenas eget venenatis velit. Nam lacinia fermentum erat, vitae rhoncus urna eleifend eu.
-                        Cras lobortis lacinia sem. Curabitur faucibus urna at vestibulum malesuada. </p>
-                    <svg className={'absolute bottom-6 right-6'} width="105" height="108" viewBox="0 0 105 108" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M43.8 107.7L44.4 66.3L8.7 88.2L2.23517e-07 74.7L37.2 52.8L1.2 31.2L9.9 18L44.1 39.3L43.8 -1.43051e-05H60L59.7 39L93.6 18L102.6 31.2L66.6 52.8L104.1 74.7L94.8 88.2L59.4 66.3L60 107.7H43.8Z" fill="white"/>
-                    </svg>
-
-                </div>
+                <TickerComp/>
+                <TransitionComp/>
             </div>
             <Footer/>
         </div>

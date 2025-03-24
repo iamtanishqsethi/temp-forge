@@ -111,7 +111,7 @@ const Header=()=>{
                         </svg>
 
                     </button>
-                        <div className={`${showDialog ? 'absolute': 'hidden'}  w-44 right-0 bg-lightGreen rounded-2xl p-5 flex flex-col justify-center`}>
+                        <div className={`${showDialog ? 'absolute': 'hidden'}  w-44 right-0 bg-lightGreen rounded-2xl p-5 flex flex-col justify-center shadow-2xl`}>
                             <div
                                 className={'flex items-center space-x-4 w-full my-2 cursor-pointer text-sm'}
                                 onClick={()=>{
