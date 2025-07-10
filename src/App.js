@@ -13,7 +13,7 @@ import Login from "./Components/Login";
 import Template from "./Components/Template";
 import ProfilePage from "./Components/Profile/ProfilePage";
 import PublicTemplates from "./Components/PublicTemplates";
-import Vault from "./Components/Vault";
+import Vault from "./Components/Profile/Vault";
 
 function App() {
   const appRouter=createBrowserRouter([
