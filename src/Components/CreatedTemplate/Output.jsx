@@ -1,5 +1,3 @@
-import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
-
 const Output = ({value}) => {
     return (
 

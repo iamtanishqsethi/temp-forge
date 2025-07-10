@@ -4,7 +4,7 @@ import appStore from "./Utils/appStore";
 import {Provider} from "react-redux";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import NewTemplate from "./Components/NewTemplate/NewTemplate";
-import Createdtemplate from "./Components/CreatedTemplate/Createdtemplate";
+import CreatedTemplate from "./Components/CreatedTemplate/CreatedTemplate";
 import Body from "./Components/Body";
 import ExistingPrompt from "./Components/CreatedTemplate/ExistingPrompt";
 import NewPrompt from "./Components/CreatedTemplate/NewPrompt";
@@ -51,7 +51,7 @@ function App() {
                       },
                       {
                           path:"/template/created/:id",
-                          element:<Createdtemplate/>,
+                          element:<CreatedTemplate/>,
                           children:[
                               {
                                   path:"/template/created/:id/:promptId",
