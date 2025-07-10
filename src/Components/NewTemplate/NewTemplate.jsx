@@ -53,9 +53,13 @@ const NewTemplate=()=>{
             alert("Please enter a valid template.")
             return
         }
+        if (!template.includes('{{') || !template.includes('}}')) {
+            alert("Template must contain at least one variable enclosed in {{ }}.")
+            return
+        }
         setIsProcessing(true)
         try {
-            const templateId = await processTemplate(template,templateTitle);
+            const templateId = await processTemplate(template, templateTitle);
             if (templateId) {
                 navigate(`/template/created/${templateId}/new`)
             } else {
@@ -63,8 +67,7 @@ const NewTemplate=()=>{
             }
         } catch (error) {
             alert("Failed to process the template. Please try again.")
-        }
-        finally {
+        } finally {
             setIsProcessing(false)
         }
     };
