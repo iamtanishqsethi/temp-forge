@@ -8,6 +8,7 @@ import Footer from "../Footer";
 import model from "../../Utils/gemini";
 import {useDispatch, useSelector} from "react-redux";
 import {reset} from "../../Utils/editSlice";
+import toast from "react-hot-toast";
 
 const NewTemplate=()=>{
 
@@ -38,10 +39,10 @@ const NewTemplate=()=>{
             if (templateId) {
                 navigate(`/template/created/${templateId}/new`)
             } else {
-                alert("Failed to process the template. Please try again.")
+                toast.error("Failed to process the template. Please enter valid template ")
             }
         } catch (error) {
-            alert("Failed to process the template. Please try again.")
+            toast.error("Failed to process the template. Please try again.")
         }
         finally {
             setIsProcessing(false)
@@ -50,11 +51,11 @@ const NewTemplate=()=>{
 
     const handleExecute = async () => {
         if (!template.trim()) {
-            alert("Please enter a valid template.")
+            toast.error("Please enter a valid template.")
             return
         }
         if (!template.includes('{{') || !template.includes('}}')) {
-            alert("Template must contain at least one variable enclosed in {{ }}.")
+            toast.error("Template must contain at least one variable enclosed in {{ }}.")
             return
         }
         setIsProcessing(true)
@@ -63,10 +64,10 @@ const NewTemplate=()=>{
             if (templateId) {
                 navigate(`/template/created/${templateId}/new`)
             } else {
-                alert("Failed to process the template. Please try again.")
+                toast.error("Failed to process the template. Please try again.")
             }
         } catch (error) {
-            alert("Failed to process the template. Please try again.")
+            toast.error("Failed to process the template. Please try again.")
         } finally {
             setIsProcessing(false)
         }

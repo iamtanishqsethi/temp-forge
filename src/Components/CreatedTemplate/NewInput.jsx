@@ -3,6 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import useFetchTemplates from "../../Hooks/useFetchTemplates";
 import useTemplateRender from "../../Hooks/useTemplateRender";
 import {useSelector} from "react-redux";
+import toast from "react-hot-toast";
 
 
 const NewInput = ({data, AST}) => {
@@ -30,10 +31,10 @@ const NewInput = ({data, AST}) => {
                 navigate(`/template/created/${id}/${promptId}`)
             }
             else{
-                alert("Failed to process the template. Please try again.")
+                toast.error("Failed to process the template. Please try again.")
             }
         }catch(error){
-            console.log('error rendering template')
+            toast.error('error rendering template')
             throw error;
         }
     };

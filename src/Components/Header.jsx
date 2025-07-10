@@ -5,6 +5,7 @@ import {auth} from "../Utils/firebase-config";
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import {addUser, removeUser} from "../Utils/userSlice";
 import {reset} from "../Utils/editSlice";
+import toast from "react-hot-toast";
 
 const Header=()=>{
     const dispatch=useDispatch();
@@ -44,6 +45,7 @@ const Header=()=>{
     const handleSignOut=()=>{
         signOut(auth)
         navigate('/')
+        toast.success("Logged out successfully")
     }
 
     useEffect(() => {

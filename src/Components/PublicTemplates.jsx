@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {addEdit} from "../Utils/editSlice";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import toast from "react-hot-toast";
 
 const PublicTemplates = () => {
     const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const PublicTemplates = () => {
             setPublicTemplates(newData);
             setFilteredPublicTemplates(newData)
         } catch (error) {
-            console.log("error fetching public templates", error);
+            toast.error("error fetching public templates", error);
         }
     };
 
@@ -37,6 +38,7 @@ const PublicTemplates = () => {
     const handleClick = (title,template) => {
         dispatch(addEdit({title,template}));
         navigate('/template/new')
+        toast.success("Template added to edit queue");
     }
 
     return (
@@ -116,7 +118,10 @@ const PublicTemplates = () => {
                         >
 
                             <button
-                                onClick={()=>window.navigator.clipboard.writeText(item.templateStr)}
+                                onClick={()=>{
+                                    window.navigator.clipboard.writeText(item.templateStr)
+                                    toast.success("Copied to clipboard");
+                                }}
                                 className={'absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-all duration-300 p-1 hover:bg-gray-200 rounded'}
                                 title={'Copy Template'}
                             >

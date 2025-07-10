@@ -18,7 +18,6 @@ const NewPrompt = () => {
     }
 
     const currentTemplate = templatesArr.find((item) => item.id == id)
-    console.log(currentTemplate)
     if (!currentTemplate) {
         navigate("/error")
         return;

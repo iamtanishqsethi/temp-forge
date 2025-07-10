@@ -1,15 +1,13 @@
 import XIcon from '@mui/icons-material/X';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import InstagramIcon from '@mui/icons-material/Instagram';
 const Footer=()=>{
     return (
         <div className={'bg-black text-white p-4 md:p-8 lg:p-16 bottom-0 w-full mt-6 flex flex-col font-inter justify-center space-y-8 md:space-y-16'}>
             <div className={'flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:justify-between'}>
                 <h1 className={'text-xl md:text-2xl text-center md:text-left'}>Unlock the full potential of AI</h1>
                 <div className={'flex items-center justify-center text-xl space-x-6 md:space-x-8'}>
-                    <button><XIcon/></button>
-                    <button><LinkedInIcon/></button>
-                    <button><InstagramIcon/></button>
+                    <a href={'https://x.com/TanishqSethi13'}><button><XIcon/></button></a>
+                    <a href="https://www.linkedin.com/in/sumit-singh-bisht-362b69288/"><button><LinkedInIcon/></button></a>
                 </div>
             </div>
             <div className={'flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:justify-between'}>

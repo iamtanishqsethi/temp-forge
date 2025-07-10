@@ -23,7 +23,6 @@ const ExistingPrompt = () => {
         return;
     }
     const currentPrompt = currentTemplate?.prompts.find((item) => item.id == promptId)
-    console.log(currentPrompt)
 
     return (
         <div className={'w-full md:w-[70%] h-[98vh] flex flex-col items-center justify-between p-4'}>

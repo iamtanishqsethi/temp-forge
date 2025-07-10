@@ -7,13 +7,14 @@ import {auth, googleProvider, githubProvider} from "../Utils/firebase-config";
 import {checkValidData} from "../Utils/validate";
 import { signInWithPopup } from "firebase/auth";
 import {PROFILE_URL} from "../Utils/constants";
+import toast from "react-hot-toast";
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [isSigninForm, setIsSigninForm] = useState(true);
-    const [errorMessage, setErrorMessage] = useState(null);
+
 
     const email=useRef(null)
     const password=useRef(null)
@@ -23,22 +24,22 @@ const Login = () => {
     const handleClick=(e)=>{
         e.preventDefault();
         const message =checkValidData(email.current.value,password.current.value)
-        setErrorMessage(message)
+        toast.error(message)
 
         if(message) return;
-        console.log('VALID')
+
 
         if(isSigninForm){//sign in existing user
             signInWithEmailAndPassword(auth, email.current.value, password.current.value)
                 .then((userCredential) => {
                     // Signed in
                     const user = userCredential.user;
-                    console.log(user);
+                    toast.success("Welcome back "+user.displayName)
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    setErrorMessage(errorCode + errorMessage)
+                    toast.error(errorCode + errorMessage)
                 });
 
         }
@@ -47,7 +48,7 @@ const Login = () => {
                 .then((userCredential) => {
                     // Signed up
                     const user = userCredential.user;
-                    console.log(user)
+                    toast.success("Welcome "+name.current.value)
                     updateProfile(user, {
                         displayName: name.current.value,
                         photoURL: PROFILE_URL
@@ -62,7 +63,7 @@ const Login = () => {
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    setErrorMessage(errorCode + errorMessage)
+                    toast.error(errorCode + errorMessage)
                 });
         }
 
@@ -75,8 +76,9 @@ const Login = () => {
             const user = result.user;
             const {uid,email,displayName,photoURL} = user;
             dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}));
+            toast.success("Welcome  "+user.displayName)
         }catch (error){
-            setErrorMessage("Google Sign-In Error:"+ error);
+            toast.error("Google Sign-In Error:"+ error);
         }
 
     }
@@ -88,8 +90,9 @@ const Login = () => {
             const user = result.user;
             const {uid,email,displayName,photoURL} = user;
             dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}));
+            toast.success("Welcome  "+user.displayName)
         }catch (error){
-            setErrorMessage("GitHub Sign-In Error:"+ error);
+            toast.error("GitHub Sign-In Error:"+ error);
         }
     }
 
@@ -198,14 +201,6 @@ const Login = () => {
                         </>
                     )}
 
-                    {errorMessage && (
-                        <div className="w-full my-3 px-3 py-2.5 bg-red-50 border-l-4 border-red-500 rounded-md shadow-sm">
-                            <p className="text-red-700 font-medium text-sm md:text-base">
-                                <span className="mr-2">⚠️</span>
-                                {errorMessage}
-                            </p>
-                        </div>
-                    )}
                     {!isSigninForm && (
                         <div className="w-full mt-1 mb-3">
                             <p className="text-xs md:text-sm text-gray-600">
