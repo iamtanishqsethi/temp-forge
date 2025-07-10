@@ -5,6 +5,7 @@ import Footer from "../Footer";
 import HoverWrapper from "./HowerWrapper";
 import {signOut} from "firebase/auth";
 import {reset} from "../../Utils/editSlice";
+import toast from "react-hot-toast";
 
 const ProfilePage = () => {
     const navigate = useNavigate()
@@ -25,6 +26,7 @@ const ProfilePage = () => {
     const handleSignOut = () => {
         signOut(auth)
         navigate('/')
+        toast.success("Successfully logged out")
     }
 
     return (
@@ -62,9 +64,6 @@ const ProfilePage = () => {
                                       func={handleShowVault}/>
                         <HoverWrapper title={'Create New'} desc={'Create a new template specific to your needs'}
                                       func={handleCreate}/>
-                        {/*<HoverWrapper title={'Show Vault'}*/}
-                        {/*              desc={'Access your vault full of templates created, generated or saved by you.'}*/}
-                        {/*              func={handleShowVault}/>*/}
                     </div>
                 </div>
             </div>

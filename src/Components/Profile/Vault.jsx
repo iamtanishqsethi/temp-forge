@@ -7,6 +7,7 @@ import VaultItem from "./VaultItem";
 import {useNavigate} from "react-router-dom";
 import Masonry from '@mui/lab/Masonry';
 import {useEffect, useState} from "react";
+import toast from "react-hot-toast";
 
 const Vault = () => {
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Vault = () => {
 
     const handleDelete = async (id) => {
         await deleteDoc(doc(database, userId, id));
+        toast.success("Template deleted");
     };
 
     const handleAddPublic = async (id) => {
@@ -34,8 +36,9 @@ const Vault = () => {
 
         try {
             await addDoc(collection(database, "public"), modifiedTemplate);
+            toast.success("Template added to public database");
         } catch (error) {
-            console.log("error adding to public database");
+            toast.error("error adding to public database");
         }
     };
 
