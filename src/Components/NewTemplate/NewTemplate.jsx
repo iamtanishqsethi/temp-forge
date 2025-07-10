@@ -71,7 +71,7 @@ const NewTemplate=()=>{
 
     return (
         <div className='flex flex-col items-center w-full min-h-screen bg-white text-black font-inter'>
-            <div className='flex flex-col xl:flex-row w-full items-center justify-center mt-4 sm:mt-6 lg:mt-16  px-4 sm:px-6 lg:px-7 gap-4 xl:gap-0'>
+            <div className='flex flex-col xl:flex-row w-full items-center justify-center mt-4 sm:mt-6 lg:mt-10  px-4 sm:px-6 lg:px-7 gap-4 xl:gap-0'>
                 <div className='w-full xl:w-[30%] xl:h-[97vh] flex flex-col items-center justify-center p-2 sm:p-4 order-2 xl:order-1'>
                     <div className='mb-4 sm:mb-5 mt-4 sm:mt-8 xl:mt-12 bg-custom-img bg-object-cover bg-object-center rounded-2xl sm:rounded-3xl w-full h-32 sm:h-40 xl:h-[35%] flex items-center justify-center'>
                         <h1 className='text-3xl sm:text-5xl lg:text-6xl xl:text-7xl text-white'>

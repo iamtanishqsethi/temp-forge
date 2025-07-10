@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 const NewInput = ({data, AST}) => {
     const isShowHistory = useSelector(store => store.config.showHistory);
     const [updatedData, setUpdatedData] = useState(null);
-    const {id} = useParams();
+    const { id } = useParams();
     const compileTemplate = useTemplateRender(id);
     const navigate = useNavigate();
 
@@ -22,14 +22,17 @@ const NewInput = ({data, AST}) => {
     };
 
     const handleRender = async () => {
-        try {
-            const promptId = await compileTemplate(updatedData)
-            if (promptId) {
+
+        try{
+            const promptId=await compileTemplate(updatedData)
+            // console.log(promptId)
+            if(promptId){
                 navigate(`/template/created/${id}/${promptId}`)
-            } else {
+            }
+            else{
                 alert("Failed to process the template. Please try again.")
             }
-        } catch (error) {
+        }catch(error){
             console.log('error rendering template')
             throw error;
         }

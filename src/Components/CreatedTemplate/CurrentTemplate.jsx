@@ -5,7 +5,7 @@ const CurrentTemplate = ({template, title}) => {
     return (
 
         <div
-            className={`${!isShowHistory ? 'h-[50vh] md:h-[50vh]' : 'h-[48%] md:h-[48%]'} w-full rounded-3xl border-2 border-black p-3 md:p-6 flex flex-col`}>
+            className={`${!isShowHistory ? 'h-[60vh] md:h-[50vh]' : 'h-[48%] md:h-[48%]'} w-full rounded-3xl border-2 border-black p-3 md:p-6 flex flex-col`}>
             <div className={'flex space-x-2 md:space-x-4'}>
                 <svg width="34" height="20" className="md:w-[44px] md:h-[25px]" viewBox="0 0 39 20" fill="none"
                      xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +28,7 @@ const CurrentTemplate = ({template, title}) => {
                 </svg>
                 <h1 className={'text-lg md:text-xl'}>TEMPLATE</h1>
             </div>
-            <div className={'border border-zinc-200 rounded-xl h-[90%] mt-2'}>
+            <div className={'border border-zinc-200 rounded-xl  h-[80%] md:h-[90%] mt-2'}>
                 <input type="text"
                        readOnly={true}
                        value={title}

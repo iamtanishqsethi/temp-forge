@@ -18,14 +18,14 @@ const NewPrompt = () => {
     }
 
     const currentTemplate = templatesArr.find((item) => item.id == id)
-
+    console.log(currentTemplate)
     if (!currentTemplate) {
         navigate("/error")
         return;
     }
     return (
-        <div className={'w-full md:w-[70%] h-[98vh] flex flex-col items-center justify-between p-4'}>
-            <div className={'mb-5 mt-14 w-full h-auto md:h-[20%] flex items-center justify-center'}>
+        <div className={'w-full md:w-[70%] h-[100vh] md:h-[98vh] flex flex-col items-center justify-between p-4'}>
+            <div className={'mb-5 mt-14 w-full h-[15%] md:h-[20%] flex items-center justify-center'}>
                 <div className={'flex flex-col md:flex-row items-center justify-start w-full'}>
                     <div className=' bg-lightGreen rounded-full w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 xl:w-[6%] xl:h-28 mr-0 sm:mr-2 mb-4 sm:mb-0 p-2 hidden md:flex flex-col space-y-1 sm:space-y-2 items-center justify-center flex-shrink-0'>
                         <svg width="42" height="42"  viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +58,7 @@ const NewPrompt = () => {
                     </div>
                 </div>
             </div>
-            <div className={'flex flex-col md:flex-row justify-between w-full h-[70%] gap-4'}>
+            <div className={'flex flex-col md:flex-row justify-between w-full h-screen sm:h-[70%] gap-4'}>
                 <div className={'w-full md:w-[49%] h-full flex flex-col items-center justify-between'}>
                     <NewInput data={currentTemplate?.data}/>
                     {isShowHistory && <CurrentTemplate template={currentTemplate?.templateStr}

@@ -16,6 +16,7 @@ const useTemplateExecute = () => {
 
             const parsedAST = parser.parse(templateStr);
             const data = Evaluator(parsedAST);
+            console.log(data)
             const docData = {
                 templateTitle:templateTitle,
                 AST: parsedAST,

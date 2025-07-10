@@ -1,6 +1,6 @@
 const EmptyOutput = () => {
     return (
-        <div className={'w-full md:w-[50%] h-full border-2 border-black rounded-3xl p-4 md:p-6 flex flex-col'}>
+        <div className={'w-full md:w-[50%] h-auto border-2 border-black rounded-3xl p-4 md:p-6 flex flex-col'}>
             <div className={'flex space-x-2 md:space-x-4'}>
                 <svg width="28" height="29" className="md:w-[35px] md:h-[36px]" viewBox="0 0 35 36" fill="none"
                      xmlns="http://www.w3.org/2000/svg">
