@@ -64,7 +64,7 @@ const TransitionComp = () => {
             </p>
 
             <svg
-                className="absolute bottom-4 right-4 md:bottom-6 md:right-6 w-16 h-16 md:w-24 md:h-24"
+                className="absolute bottom-4 right-4 md:bottom-6 md:right-6 w-16 h-16 md:w-24 md:h-24 -z-10"
                 viewBox="0 0 105 108"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

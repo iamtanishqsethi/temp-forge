@@ -187,6 +187,13 @@ const Header=()=>{
                                         </div>
 
                                         <div className="sm:hidden border-t border-black/10 mt-2 pt-2">
+                                            <div className="flex items-center space-x-3 w-full my-2 cursor-pointer text-sm hover:bg-black/5 p-1.5 rounded-lg transition-colors">
+                                                <h1 className="tex-gray-800 font-medium">Explore</h1>
+                                                <svg width="20" height="17" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M20.9185 2.88188C20.9868 2.29489 20.631 1.77119 20.1237 1.71215L11.8571 0.750165C11.3498 0.691132 10.8832 1.11912 10.8149 1.70611C10.7466 2.2931 11.1024 2.8168 11.6097 2.87583L18.9578 3.73094L17.9683 12.2336C17.9 12.8206 18.2559 13.3443 18.7632 13.4033C19.2705 13.4624 19.7371 13.0344 19.8054 12.4474L20.9185 2.88188ZM1.56203 21.0298L20.562 3.60211L19.438 1.94787L0.437972 19.3755L1.56203 21.0298Z" fill="currentColor"/>
+                                                </svg>
+                                            </div>
+
                                             <div
                                                 className="flex items-center space-x-3 w-full my-2 cursor-pointer text-sm hover:bg-black/5 p-1.5 rounded-lg transition-colors"
                                                 onClick={handleSignOut}

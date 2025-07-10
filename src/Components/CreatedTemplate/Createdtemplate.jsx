@@ -1,6 +1,5 @@
 import PreviousPrompts from "./PreviousPrompts";
 import {Outlet, useNavigate, useParams} from "react-router-dom";
-import React from "react";
 import Footer from "../Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleShowHistory } from "../../Utils/configSlice";
