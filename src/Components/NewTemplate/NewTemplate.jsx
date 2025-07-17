@@ -43,7 +43,7 @@ const NewTemplate=()=>{
         try {
 
             const model = initializeGeminiAI()
-            const message = `Act as a ai prompt template generator and generate a prompt template for ${prompt.trim()} the variables in the prompt must be enclosed in "{{ }}" . Only give the template and the template should be well structured `;
+            const message = `Act as a ai prompt template generator and generate a prompt template for ${prompt.trim()} the variables in the prompt must be enclosed in "{{ }}" . Only give the template and the template should be well structured and no other information should be given. `;
 
             const result = await Promise.race([
                 model.generateContent(message),
