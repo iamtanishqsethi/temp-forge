@@ -5,7 +5,7 @@ const CurrentTemplate = ({template, title}) => {
     return (
 
         <div
-            className={`${!isShowHistory ? 'h-[60vh] md:h-[50vh]' : 'h-[48%] md:h-[48%]'} w-full rounded-3xl border-2 border-black p-3 md:p-6 flex flex-col`}>
+            className={`${!isShowHistory ? 'h-[60vh] md:h-[50vh]' : 'h-[48%] md:h-[48%]'} overflow-hidden w-full rounded-3xl border-2 border-black p-3 md:p-6 flex flex-col`}>
             <div className={'flex space-x-2 md:space-x-4'}>
                 <svg width="34" height="20" className="md:w-[44px] md:h-[25px]" viewBox="0 0 39 20" fill="none"
                      xmlns="http://www.w3.org/2000/svg">
@@ -34,7 +34,7 @@ const CurrentTemplate = ({template, title}) => {
                        value={title}
                        className={'w-full mx-1 p-1 outline-none text-base md:text-lg font-medium'}
                 />
-                <textarea className={'w-full h-[80%] m-1 p-1 outline-none text-sm md:text-base'}
+                <textarea className={' resize-none w-full h-full  p-1 outline-none text-sm md:text-base'}
                           required={true}
                           value={template}
                 ></textarea>

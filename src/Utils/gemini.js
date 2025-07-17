@@ -1,11 +1,23 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+export const initializeGeminiAI = () => {
+    try {
+        const apiKey = localStorage.getItem('gemini_api_key');
+        const modelName = localStorage.getItem('gemini_model');
 
-const genAI = new GoogleGenerativeAI(process.env.REACT_APP_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        if (!apiKey) {
+            throw new Error('Gemini API key not found in localStorage');
+        }
 
+        if (!modelName) {
+            throw new Error('Gemini model name not found in localStorage');
+        }
 
-// const testRun=async ()=>{
-//     const result = await model.generateContent(prompt);
-//     console.log(result.response.text());
-// }
-export default model
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({ model: modelName });
+
+        return model;
+    } catch (error) {
+        console.error('Failed to initialize Gemini AI:', error);
+        throw error;
+    }
+};

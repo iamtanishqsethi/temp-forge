@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import useFetchTemplates from "../../Hooks/useFetchTemplates";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import Footer from "../Footer";
-import model from "../../Utils/gemini";
+import  {initializeGeminiAI} from "../../Utils/gemini";
 import {useDispatch, useSelector} from "react-redux";
 import {reset} from "../../Utils/editSlice";
 import toast from "react-hot-toast";
@@ -26,28 +26,75 @@ const NewTemplate=()=>{
 
     useFetchTemplates()
 
-    const handelPrompt=async ()=>{
-        if (!prompt.trim()) {
-            alert("Please enter a valid prompt.")
-            return
+    const handlePrompt = async () => {
+
+        if (!prompt || !prompt.trim()) {
+            toast.error("Please enter a valid prompt.");
+            return;
         }
-        setIsProcessing(true)
+
+        if (!templateTitle || !templateTitle.trim()) {
+            toast.error("Please enter a valid template title.");
+            return;
+        }
+
+        setIsProcessing(true);
+
         try {
-            const message = `Act as a ai prompt template generator and generate a prompt template for ${prompt} the variables in the prompt must be enclosed in "{{ }}" . Only give the template and the template should be well structured `;
-            const result = await model.generateContent(message);
-            const templateId = await processTemplate(result.response.text(),templateTitle);
-            if (templateId) {
-                navigate(`/template/created/${templateId}/new`)
-            } else {
-                toast.error("Failed to process the template. Please enter valid template ")
+
+            const model = initializeGeminiAI()
+            const message = `Act as a ai prompt template generator and generate a prompt template for ${prompt.trim()} the variables in the prompt must be enclosed in "{{ }}" . Only give the template and the template should be well structured `;
+
+            const result = await Promise.race([
+                model.generateContent(message),
+                new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error('Request timeout')), 30000)
+                )
+            ])
+
+            if (!result || !result.response) {
+                throw new Error('Invalid response from Gemini API');
             }
+
+            const responseText = result.response.text()
+
+            if (!responseText || !responseText.trim()) {
+                throw new Error('Empty response from Gemini API');
+            }
+
+            const templateId = await processTemplate(responseText, templateTitle.trim());
+
+            if (!templateId) {
+                throw new Error('Failed to process template - invalid template generated');
+            }
+
+            navigate(`/template/created/${templateId}/new`);
+
         } catch (error) {
-            toast.error("Failed to process the template. Please try again.")
+            console.error('Error in handlePrompt:', error);
+
+            if (error.message.includes('API key')) {
+                toast.error("API key not configured. Please check your settings.");
+            } else if (error.message.includes('timeout')) {
+                toast.error("Request timed out. Please try again.");
+            } else if (error.message.includes('quota') || error.message.includes('limit')) {
+                toast.error("API quota exceeded. Please try again later.");
+            } else if (error.message.includes('network') || error.message.includes('fetch')) {
+                toast.error("Network error. Please check your connection and try again.");
+            } else if (error.message.includes('Invalid response') || error.message.includes('Empty response')) {
+                toast.error("Invalid response from AI service. Please try again.");
+            } else if (error.message.includes('Failed to process template')) {
+                toast.error("Failed to process the template. Please enter a valid template.");
+            } else {
+
+                toast.error("An unexpected error occurred. Please try again.");
+            }
+
+
+        } finally {
+            setIsProcessing(false);
         }
-        finally {
-            setIsProcessing(false)
-        }
-    }
+    };
 
     const handleExecute = async () => {
         if (!template.trim()) {
@@ -219,7 +266,7 @@ const NewTemplate=()=>{
                                 <div className={'w-full flex items-center justify-end'}>
                                     <button
                                         className="bg-custom-img bg-object-cover  text-white px-4 py-2.5 m-2 rounded-full text-sm"
-                                        onClick={handelPrompt}
+                                        onClick={handlePrompt}
                                         disabled={isProcessing}
                                     >
                                         {isProcessing?'Processing...':'Create Template '}<AutoAwesomeIcon/>

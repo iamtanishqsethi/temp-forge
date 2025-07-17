@@ -1,16 +1,16 @@
 import {useDispatch, useSelector} from "react-redux";
-import {auth, database} from "../../Utils/firebase-config";
-import {Link, useNavigate} from "react-router-dom";
+import {auth} from "../../Utils/firebase-config";
+import {useNavigate} from "react-router-dom";
 import Footer from "../Footer";
 import HoverWrapper from "./HowerWrapper";
 import {signOut} from "firebase/auth";
 import {reset} from "../../Utils/editSlice";
 import toast from "react-hot-toast";
+import ApiBox from "./ApiBox";
 
 const ProfilePage = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const userId = useSelector((state) => state.user?.uid);
     const email = useSelector((state) => state.user?.email);
     const profileIMG = useSelector((state) => state.user?.photoURL);
     const displayName = useSelector((state) => state.user?.displayName);
@@ -64,6 +64,7 @@ const ProfilePage = () => {
                                       func={handleShowVault}/>
                         <HoverWrapper title={'Create New'} desc={'Create a new template specific to your needs'}
                                       func={handleCreate}/>
+                        <ApiBox/>
                     </div>
                 </div>
             </div>

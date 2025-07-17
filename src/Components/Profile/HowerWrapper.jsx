@@ -1,19 +1,16 @@
 import {useState} from "react";
 
 const HoverWrapper = ({title, desc, func}) => {
-    const [isHover, setIsHover] = useState(false)
 
     return (
         <div
-            onMouseEnter={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}
-            className={`w-full sm:w-1/3 h-44 md:h-60 rounded-3xl p-4 sm:p-8 ${isHover ? "bg-lightGreen" : 'bg-zinc-200'} transition ease-in-out duration-300`}>
+            className={`w-full sm:w-1/3 h-44 md:h-60 rounded-3xl p-4 sm:p-8 group hover:bg-lightGreen bg-zinc-200 transition ease-in-out duration-300`}>
             <h1 className={'text-2xl sm:text-3xl my-2'}>{title}</h1>
             <p className={'text-base sm:text-lg'}>{desc}</p>
             <div className="flex items-center justify-end">
                 <button
                     onClick={func}
-                    className={`transition ease-in-out duration-300 m-2 ${!isHover && 'sm:hidden'}`}>
+                    className={`transition ease-in-out duration-300 m-2 sm:opacity-0 opacity-0 group-hover:opacity-100`}>
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_521_350)">
                             <path
