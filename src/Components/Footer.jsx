@@ -7,7 +7,7 @@ const Footer=()=>{
                 <h1 className={'text-xl md:text-2xl text-center md:text-left'}>Unlock the full potential of AI</h1>
                 <div className={'flex items-center justify-center text-xl space-x-6 md:space-x-8'}>
                     <a href={'https://x.com/TanishqSethi13'}><button><XIcon/></button></a>
-                    <a href="https://www.linkedin.com/in/sumit-singh-bisht-362b69288/"><button><LinkedInIcon/></button></a>
+                    <a href="https://www.linkedin.com/in/sumit-singh-bisht-011242376/"><button><LinkedInIcon/></button></a>
                 </div>
             </div>
             <div className={'flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:justify-between'}>
